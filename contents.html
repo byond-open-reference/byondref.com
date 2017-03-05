@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="ref">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <style>
+    <!--
+    body {font: 10pt Verdana,Arial,Helvetica,sans-serif; background: white; color: black;}
+    dl, dd {margin-top: 0; margin-bottom: 0;}
+    dd {margin-left: 0; padding-left: 1.5em;}
+    dd.expand {display: block;}
+    dl a {text-decoration: none;}
+    .expander {display: inline-block; vertical-align: middle; width: 11px; height: 11px; margin-right: 1em; font-size: 8pt; text-align: center;}
+    .expander img {cursor: pointer;}
+    .sel > a {font-weight: bold;}
+      -->
+  </style>
+  <script type="text/javascript"><!--
+    if(!Function.prototype.bind) Function.prototype.bind = function(o) {
+      var a=Array.prototype.slice(arguments,1),f=this;
+      return function() {return f.apply(o,a.concat(arguments));}
+    }
+    window.addEventListener('message', function(m){
+      if(typeof m.data != 'string') return;
+      if(m.data.match(/^nav:/)) navTo(m.data.substr(4));
+    });
+    var plusimg = 'data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAMAAACecocUAAAACVBMVEWAgID///8AAADOvuwWAAAAJElEQVR42o3NoQ0AAAwCwcL+QyMoAtWeekHCFMQ2r6a991GvAhjAAF/WgxB1AAAAAElFTkSuQmCC';
+    var minusimg = 'data:image/png;charset=utf-8;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAMAAACecocUAAAACVBMVEWAgID///8AAADOvuwWAAAAIklEQVR42p3LMQoAAAzCQPX/j3YoUtxKb8oSFMa1Nfh4lwEXNABZXAgFLwAAAABJRU5ErkJggg==';
+    function navTo(m) {
+      var l=document.querySelector('a[href="info.html#'+m+'"]'),n,b;
+      while((n=document.querySelector('.sel'))) n.classList.remove('sel');
+      while((n=document.querySelector('.expand.auto'))) n.classList.remove('expand');
+      for(n=l; (n=n.parentNode);) {
+        if(n.tagName == 'DD') n=n.previousSibling;
+        if((b=n.firstChild) && b.firstChild) expand.call(b,true,true);
+        if(n.classList) n.classList.add('sel');
+      }
+      try{l.scrollIntoView();} catch(_){}
+      while((n=document.querySelector('.auto:not(.expand)'))) expand.call(n,false);
+    }
+    function expand(open,auto) {
+      this.classList.toggle('auto',!!auto);
+      var sib=this.parentNode.nextSibling,img=this.firstChild;
+      while(sib && sib.tagName != 'DD' && sib.tagName != 'DT') sib = sib.nextSibling;
+      if(sib && sib.tagName == 'DD') {
+        if(typeof open != 'boolean') open = !sib.classList.contains('expand');
+        sib.classList.toggle('expand',open);
+        this.classList.toggle('expand',open);
+        img.setAttribute('src',open?minusimg:plusimg);
+        //this.setAttribute('alt',open?'[-]':'[+]');
+      }
+      return false;
+    }
+    function maketree() {
+      var ds0 = (document.stylesheets||document.styleSheets)[0], dts = document.getElementsByTagName('dt'), item, i, sib, box, img;
+      if(ds0.insertRule) ds0.insertRule("dd {display: none;}", 0);
+      else ds0.addRule("dd", "display: none", 0);
+
+      dts = document.getElementsByTagName('dt');
+      for(i=0; i<dts.length; ++i) {
+        sib = (item=dts[i]).nextSibling;
+        while(sib && sib.tagName != 'DD' && sib.tagName != 'DT') sib = sib.nextSibling;
+        box = document.createElement('div');
+        box.className = 'expander';
+        item.insertBefore(box, item.firstChild);
+        if(sib && sib.tagName == 'DD') {
+          box.appendChild(img=document.createElement('img'));
+          expand.call(box,false);
+          box.onclick = expand.bind(box);
+        }
+      }
+    }
+  //--></script>
+</head>
+<body bgcolor=#ffffff text=#000000 onload="maketree()">
+
+<dl>
+  <dt><a href=info.html#/DM>DM</a>
+  <dd><dl>
+    <dt><a href=info.html#/DM/cache>cache</a>
+    <dt><a href=info.html#/DM/comment>comment</a>
+    <dt><a href=info.html#/DM/garbage>garbage</a>
+    <dt><a href=info.html#/DM/icon>icon</a>
+    <dd><dl>
+      <dt><a href=info.html#/DM/icon/arithmetic>arithmetic</a>
+    </dl></dd>
+    <dt><a href=info.html#/DM/mouse>mouse</a>
+    <dd><dl>
+      <dt><a href=info.html#/DM/mouse/pointers>pointers</a>
+    </dl></dd>
+    <dt><a href=info.html#/DM/null>null</a>
+    <dt><a href=info.html#/DM/preprocessor>preprocessor</a>
+    <dd><dl>
+      <dt><a href=info.html#/DM/preprocessor/DM_VERSION>DM_VERSION</a>
+      <dt><a href=info.html#/DM/preprocessor/__FILE__>__FILE__</a>
+      <dt><a href=info.html#/DM/preprocessor/__LINE__>__LINE__</a>
+      <dt><a href=info.html#/DM/preprocessor/__MAIN__>__MAIN__</a>
+      <dt><a href=info.html#/DM/preprocessor/define>define</a>
+      <dd><dl>
+        <dt><a href=info.html#/DM/preprocessor/define/DEBUG>DEBUG</a>
+        <dt><a href=info.html#/DM/preprocessor/define/FILE_DIR>FILE_DIR</a>
+      </dl></dd>
+      <dt><a href=info.html#/DM/preprocessor/elif>elif</a>
+      <dt><a href=info.html#/DM/preprocessor/else>else</a>
+      <dt><a href=info.html#/DM/preprocessor/endif>endif</a>
+      <dt><a href=info.html#/DM/preprocessor/error>error</a>
+      <dt><a href=info.html#/DM/preprocessor/if>if</a>
+      <dt><a href=info.html#/DM/preprocessor/ifdef>ifdef</a>
+      <dt><a href=info.html#/DM/preprocessor/ifndef>ifndef</a>
+      <dt><a href=info.html#/DM/preprocessor/include>include</a>
+      <dt><a href=info.html#/DM/preprocessor/undef>undef</a>
+      <dt><a href=info.html#/DM/preprocessor/warn>warn</a>
+    </dl></dd>
+    <dt><a href=info.html#/DM/sound>sound</a>
+    <dt><a href=info.html#/DM/text>text</a>
+    <dd><dl>
+      <dt><a href=info.html#/DM/text/entities>entities</a>
+      <dt><a href=info.html#/DM/text/macros>macros</a>
+      <dd><dl>
+        <dt><a href=info.html#/DM/text/macros/icon>icon</a>
+        <dt><a href=info.html#/DM/text/macros/ref>ref</a>
+      </dl></dd>
+      <dt><a href=info.html#/DM/text/style>style</a>
+      <dt><a href=info.html#/DM/text/tags>tags</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/area>area</a>
+  <dd><dl>
+    <dt><a href=info.html#/area/proc>proc</a>
+    <dt><a href=info.html#/area/room>room</a>
+    <dt><a href=info.html#/area/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/area/var/parent_type>parent_type</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/atom>atom</a>
+  <dd><dl>
+    <dt><a href=info.html#/atom/movable>movable</a>
+    <dd><dl>
+      <dt><a href=info.html#/atom/movable/proc>proc</a>
+      <dd><dl>
+        <dt><a href=info.html#/atom/movable/proc/Bump>Bump</a>
+        <dt><a href=info.html#/atom/movable/proc/Cross>Cross</a>
+        <dt><a href=info.html#/atom/movable/proc/Crossed>Crossed</a>
+        <dt><a href=info.html#/atom/movable/proc/Move>Move</a>
+        <dt><a href=info.html#/atom/movable/proc/Uncross>Uncross</a>
+        <dt><a href=info.html#/atom/movable/proc/Uncrossed>Uncrossed</a>
+      </dl></dd>
+      <dt><a href=info.html#/atom/movable/var>var</a>
+      <dd><dl>
+        <dt><a href=info.html#/atom/movable/var/animate_movement>animate_movement</a>
+        <dt><a href=info.html#/atom/movable/var/bound_x>bound_x</a>
+        <dt><a href=info.html#/atom/movable/var/bound_y>bound_y</a>
+        <dt><a href=info.html#/atom/movable/var/bound_width>bound_width</a>
+        <dt><a href=info.html#/atom/movable/var/bound_height>bound_height</a>
+        <dt><a href=info.html#/atom/movable/var/locs>locs</a>
+        <dt><a href=info.html#/atom/movable/var/glide_size>glide_size</a>
+        <dt><a href=info.html#/atom/movable/var/screen_loc>screen_loc</a>
+        <dt><a href=info.html#/atom/movable/var/step_size>step_size</a>
+        <dt><a href=info.html#/atom/movable/var/step_x>step_x</a>
+        <dt><a href=info.html#/atom/movable/var/step_y>step_y</a>
+      </dl></dd>
+    </dl></dd>
+    <dt><a href=info.html#/atom/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/atom/proc/Click>Click</a>
+      <dt><a href=info.html#/atom/proc/DblClick>DblClick</a>
+      <dt><a href=info.html#/atom/proc/Enter>Enter</a>
+      <dt><a href=info.html#/atom/proc/Entered>Entered</a>
+      <dt><a href=info.html#/atom/proc/Exit>Exit</a>
+      <dt><a href=info.html#/atom/proc/Exited>Exited</a>
+      <dt><a href=info.html#/atom/proc/MouseDown>MouseDown</a>
+      <dt><a href=info.html#/atom/proc/MouseDrag>MouseDrag</a>
+      <dt><a href=info.html#/atom/proc/MouseDrop>MouseDrop</a>
+      <dt><a href=info.html#/atom/proc/MouseEntered>MouseEntered</a>
+      <dt><a href=info.html#/atom/proc/MouseExited>MouseExited</a>
+      <dt><a href=info.html#/atom/proc/MouseMove>MouseMove</a>
+      <dt><a href=info.html#/atom/proc/MouseUp>MouseUp</a>
+      <dt><a href=info.html#/atom/proc/MouseWheel>MouseWheel</a>
+      <dt><a href=info.html#/atom/proc/New>New</a>
+      <dt><a href=info.html#/atom/proc/Stat>Stat</a>
+    </dl></dd>
+    <dt><a href=info.html#/atom/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/atom/var/alpha>alpha</a>
+      <dt><a href=info.html#/atom/var/appearance>appearance</a>
+      <dt><a href=info.html#/atom/var/appearance_flags>appearance_flags</a>
+      <dt><a href=info.html#/atom/var/blend_mode>blend_mode</a>
+      <dt><a href=info.html#/atom/var/color>color</a>
+      <dt><a href=info.html#/atom/var/contents>contents</a>
+      <dt><a href=info.html#/atom/var/density>density</a>
+      <dt><a href=info.html#/atom/var/desc>desc</a>
+      <dt><a href=info.html#/atom/var/dir>dir</a>
+      <dt><a href=info.html#/atom/var/gender>gender</a>
+      <dt><a href=info.html#/atom/var/icon>icon</a>
+      <dt><a href=info.html#/atom/var/icon_state>icon_state</a>
+      <dt><a href=info.html#/atom/var/infra_luminosity>infra_luminosity</a>
+      <dt><a href=info.html#/atom/var/invisibility>invisibility</a>
+      <dt><a href=info.html#/atom/var/layer>layer</a>
+      <dt><a href=info.html#/atom/var/loc>loc</a>
+      <dt><a href=info.html#/atom/var/luminosity>luminosity</a>
+      <dt><a href=info.html#/atom/var/maptext>maptext</a>
+      <dt><a href=info.html#/atom/var/maptext_width>maptext_width</a>
+      <dt><a href=info.html#/atom/var/maptext_height>maptext_height</a>
+      <dt><a href=info.html#/atom/var/maptext_x>maptext_x</a>
+      <dt><a href=info.html#/atom/var/maptext_y>maptext_y</a>
+      <dt><a href=info.html#/atom/var/mouse_drag_pointer>mouse_drag_pointer</a>
+      <dt><a href=info.html#/atom/var/mouse_drop_pointer>mouse_drop_pointer</a>
+      <dt><a href=info.html#/atom/var/mouse_drop_zone>mouse_drop_zone</a>
+      <dt><a href=info.html#/atom/var/mouse_opacity>mouse_opacity</a>
+      <dt><a href=info.html#/atom/var/mouse_over_pointer>mouse_over_pointer</a>
+      <dt><a href=info.html#/atom/var/name>name</a>
+      <dt><a href=info.html#/atom/var/opacity>opacity</a>
+      <dt><a href=info.html#/atom/var/overlays>overlays</a>
+      <dt><a href=info.html#/atom/var/override>override</a>
+      <dt><a href=info.html#/atom/var/pixel_x>pixel_x</a>
+      <dt><a href=info.html#/atom/var/pixel_y>pixel_y</a>
+      <dt><a href=info.html#/atom/var/pixel_w>pixel_w</a>
+      <dt><a href=info.html#/atom/var/pixel_z>pixel_z</a>
+      <dt><a href=info.html#/atom/var/plane>plane</a>
+      <dt><a href=info.html#/atom/var/suffix>suffix</a>
+      <dt><a href=info.html#/atom/var/text>text</a>
+      <dt><a href=info.html#/atom/var/transform>transform</a>
+      <dt><a href=info.html#/atom/var/underlays>underlays</a>
+      <dt><a href=info.html#/atom/var/verbs>verbs</a>
+      <dt><a href=info.html#/atom/var/x>x</a>
+      <dt><a href=info.html#/atom/var/y>y</a>
+      <dt><a href=info.html#/atom/var/z>z</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/client>client</a>
+  <dd><dl>
+    <dt><a href=info.html#/client/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/client/proc/AllowUpload>AllowUpload</a>
+      <dt><a href=info.html#/client/proc/Center>Center</a>
+      <dt><a href=info.html#/client/proc/CheckPassport>CheckPassport</a>
+      <dt><a href=info.html#/client/proc/Click>Click</a>
+      <dt><a href=info.html#/client/proc/Command>Command</a>
+      <dt><a href=info.html#/client/proc/DblClick>DblClick</a>
+      <dt><a href=info.html#/client/proc/Del>Del</a>
+      <dt><a href=info.html#/client/proc/East>East</a>
+      <dt><a href=info.html#/client/proc/Export>Export</a>
+      <dt><a href=info.html#/client/proc/Import>Import</a>
+      <dt><a href=info.html#/client/proc/IsByondMember>IsByondMember</a>
+      <dt><a href=info.html#/client/proc/MouseDown>MouseDown</a>
+      <dt><a href=info.html#/client/proc/MouseDrag>MouseDrag</a>
+      <dt><a href=info.html#/client/proc/MouseDrop>MouseDrop</a>
+      <dt><a href=info.html#/client/proc/MouseEntered>MouseEntered</a>
+      <dt><a href=info.html#/client/proc/MouseExited>MouseExited</a>
+      <dt><a href=info.html#/client/proc/MouseMove>MouseMove</a>
+      <dt><a href=info.html#/client/proc/MouseUp>MouseUp</a>
+      <dt><a href=info.html#/client/proc/MouseWheel>MouseWheel</a>
+      <dt><a href=info.html#/client/proc/Move>Move</a>
+      <dt><a href=info.html#/client/proc/New>New</a>
+      <dt><a href=info.html#/client/proc/North>North</a>
+      <dt><a href=info.html#/client/proc/Northeast>Northeast</a>
+      <dt><a href=info.html#/client/proc/Northwest>Northwest</a>
+      <dt><a href=info.html#/client/proc/SendPage>SendPage</a>
+      <dt><a href=info.html#/client/proc/South>South</a>
+      <dt><a href=info.html#/client/proc/Southeast>Southeast</a>
+      <dt><a href=info.html#/client/proc/Southwest>Southwest</a>
+      <dt><a href=info.html#/client/proc/Stat>Stat</a>
+      <dt><a href=info.html#/client/proc/Topic>Topic</a>
+      <dt><a href=info.html#/client/proc/West>West</a>
+    </dl></dd>
+    <dt><a href=info.html#/client/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/client/var/address>address</a>
+      <dt><a href=info.html#/client/var/authenticate>authenticate</a>
+      <dt><a href=info.html#/client/var/bounds>bounds</a>
+      <dt><a href=info.html#/client/var/byond_version>byond_version</a>
+      <dt><a href=info.html#/client/var/CGI>CGI</a>
+      <dt><a href=info.html#/client/var/ckey>ckey</a>
+      <dt><a href=info.html#/client/var/color>color</a>
+      <dt><a href=info.html#/client/var/command_text>command_text</a>
+      <dt><a href=info.html#/client/var/connection>connection</a>
+      <dt><a href=info.html#/client/var/control_freak>control_freak</a>
+      <dt><a href=info.html#/client/var/computer_id>computer_id</a>
+      <dt><a href=info.html#/client/var/default_verb_category>default_verb_category</a>
+      <dt><a href=info.html#/client/var/dir>dir</a>
+      <dt><a href=info.html#/client/var/edge_limit>edge_limit</a>
+      <dt><a href=info.html#/client/var/eye>eye</a>
+      <dt><a href=info.html#/client/var/fps>fps</a>
+      <dt><a href=info.html#/client/var/gender>gender</a>
+      <dt><a href=info.html#/client/var/glide_size>glide_size</a>
+      <dt><a href=info.html#/client/var/images>images</a>
+      <dt><a href=info.html#/client/var/inactivity>inactivity</a>
+      <dt><a href=info.html#/client/var/key>key</a>
+      <dt><a href=info.html#/client/var/lazy_eye>lazy_eye</a>
+      <dt><a href=info.html#/client/var/mob>mob</a>
+      <dt><a href=info.html#/client/var/mouse_pointer_icon>mouse_pointer_icon</a>
+      <dt><a href=info.html#/client/var/perspective>perspective</a>
+      <dt><a href=info.html#/client/var/pixel_x>pixel_x</a>
+      <dt><a href=info.html#/client/var/pixel_y>pixel_y</a>
+      <dt><a href=info.html#/client/var/pixel_w>pixel_w</a>
+      <dt><a href=info.html#/client/var/pixel_z>pixel_z</a>
+      <dt><a href=info.html#/client/var/preload_rsc>preload_rsc</a>
+      <dt><a href=info.html#/client/var/screen>screen</a>
+      <dt><a href=info.html#/client/var/script>script</a>
+      <dd><dl>
+        <dt><a href=info.html#/client/var/script/PASSWORD_TRIGGER>PASSWORD_TRIGGER</a>
+        <dt><a href=info.html#/client/var/script/URL>URL</a>
+        <dd><dl>
+          <dt><a href=info.html#/client/var/script/URL/browser>browser</a>
+        </dl></dd>
+        <dt><a href=info.html#/client/var/script/alias>alias</a>
+        <dt><a href=info.html#/client/var/script/macro>macro</a>
+        <dt><a href=info.html#/client/var/script/style>style</a>
+      </dl></dd>
+      <dt><a href=info.html#/client/var/show_map>show_map</a>
+      <dt><a href=info.html#/client/var/show_popup_menus>show_popup_menus</a>
+      <dt><a href=info.html#/client/var/show_verb_panel>show_verb_panel</a>
+      <dt><a href=info.html#/client/var/statobj>statobj</a>
+      <dt><a href=info.html#/client/var/statpanel>statpanel</a>
+      <dt><a href=info.html#/client/var/tick_lag>tick_lag</a>
+      <dt><a href=info.html#/client/var/verbs>verbs</a>
+      <dt><a href=info.html#/client/var/view>view</a>
+      <dt><a href=info.html#/client/var/virtual_eye>virtual_eye</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/database>database</a>
+  <dd><dl>
+    <dt><a href=info.html#/database/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/database/proc/Close>Close</a>
+      <dt><a href=info.html#/database/proc/Error>Error</a>
+      <dt><a href=info.html#/database/proc/ErrorMsg>ErrorMsg</a>
+      <dt><a href=info.html#/database/proc/New>New</a>
+      <dt><a href=info.html#/database/proc/Open>Open</a>
+    </dl></dd>
+    <dt><a href=info.html#/database/query>query</a>
+    <dd><dl>
+      <dt><a href=info.html#/database/query/proc>proc</a>
+      <dd><dl>
+        <dt><a href=info.html#/database/query/proc/Add>Add</a>
+        <dt><a href=info.html#/database/query/proc/Clear>Clear</a>
+        <dt><a href=info.html#/database/query/proc/Close>Close</a>
+        <dt><a href=info.html#/database/query/proc/Columns>Columns</a>
+        <dt><a href=info.html#/database/query/proc/Error>Error</a>
+        <dt><a href=info.html#/database/query/proc/ErrorMsg>ErrorMsg</a>
+        <dt><a href=info.html#/database/query/proc/Execute>Execute</a>
+        <dt><a href=info.html#/database/query/proc/GetColumn>GetColumn</a>
+        <dt><a href=info.html#/database/query/proc/GetRowData>GetRowData</a>
+        <dt><a href=info.html#/database/query/proc/New>New</a>
+        <dt><a href=info.html#/database/query/proc/NextRow>NextRow</a>
+        <dt><a href=info.html#/database/query/proc/Reset>Reset</a>
+        <dt><a href=info.html#/database/query/proc/RowsAffected>RowsAffected</a>
+      </dl></dd>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/datum>datum</a>
+  <dd><dl>
+    <dt><a href=info.html#/datum/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/datum/proc/Del>Del</a>
+      <dt><a href=info.html#/datum/proc/New>New</a>
+      <dt><a href=info.html#/datum/proc/Read>Read</a>
+      <dt><a href=info.html#/datum/proc/Topic>Topic</a>
+      <dt><a href=info.html#/datum/proc/Write>Write</a>
+    </dl></dd>
+    <dt><a href=info.html#/datum/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/datum/var/parent_type>parent_type</a>
+      <dt><a href=info.html#/datum/var/tag>tag</a>
+      <dt><a href=info.html#/datum/var/type>type</a>
+      <dt><a href=info.html#/datum/var/vars>vars</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/exception>exception</a>
+  <dt><a href=info.html#/icon>icon</a>
+  <dd><dl>
+    <dt><a href=info.html#/icon/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/icon/proc/Blend>Blend</a>
+      <dt><a href=info.html#/icon/proc/Crop>Crop</a>
+      <dt><a href=info.html#/icon/proc/DrawBox>DrawBox</a>
+      <dt><a href=info.html#/icon/proc/Flip>Flip</a>
+      <dt><a href=info.html#/icon/proc/GetPixel>GetPixel</a>
+      <dt><a href=info.html#/icon/proc/Height>Height</a>
+      <dt><a href=info.html#/icon/proc/IconStates>IconStates</a>
+      <dt><a href=info.html#/icon/proc/Insert>Insert</a>
+      <dt><a href=info.html#/icon/proc/MapColors>MapColors</a>
+      <dt><a href=info.html#/icon/proc/New>New</a>
+      <dt><a href=info.html#/icon/proc/Scale>Scale</a>
+      <dt><a href=info.html#/icon/proc/SetIntensity>SetIntensity</a>
+      <dt><a href=info.html#/icon/proc/Shift>Shift</a>
+      <dt><a href=info.html#/icon/proc/SwapColor>SwapColor</a>
+      <dt><a href=info.html#/icon/proc/Turn>Turn</a>
+      <dt><a href=info.html#/icon/proc/Width>Width</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/image>image</a>
+  <dd><dl>
+    <dt><a href=info.html#/image/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/image/var/loc>loc</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/list>list</a>
+  <dd><dl>
+    <dt><a href=info.html#/list/associations>associations</a>
+    <dt><a href=info.html#/list/operators>operators</a>
+    <dt><a href=info.html#/list/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/list/proc/Add>Add</a>
+      <dt><a href=info.html#/list/proc/Copy>Copy</a>
+      <dt><a href=info.html#/list/proc/Cut>Cut</a>
+      <dt><a href=info.html#/list/proc/Find>Find</a>
+      <dt><a href=info.html#/list/proc/Insert>Insert</a>
+      <dt><a href=info.html#/list/proc/Join>Join</a>
+      <dt><a href=info.html#/list/proc/Remove>Remove</a>
+      <dt><a href=info.html#/list/proc/Swap>Swap</a>
+    </dl></dd>
+    <dt><a href=info.html#/list/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/list/var/len>len</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/map>map</a>
+  <dt><a href=info.html#/matrix>matrix</a>
+  <dd><dl>
+    <dt><a href=info.html#/matrix/operators>operators</a>
+    <dt><a href=info.html#/matrix/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/matrix/proc/Add>Add</a>
+      <dt><a href=info.html#/matrix/proc/Interpolate>Interpolate</a>
+      <dt><a href=info.html#/matrix/proc/Invert>Invert</a>
+      <dt><a href=info.html#/matrix/proc/Multiply>Multiply</a>
+      <dt><a href=info.html#/proc/matrix>New</a>
+      <dt><a href=info.html#/matrix/proc/Scale>Scale</a>
+      <dt><a href=info.html#/matrix/proc/Subtract>Subtract</a>
+      <dt><a href=info.html#/matrix/proc/Translate>Translate</a>
+      <dt><a href=info.html#/matrix/proc/Turn>Turn</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/mob>mob</a>
+  <dd><dl>
+    <dt><a href=info.html#/mob/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/mob/proc/Login>Login</a>
+      <dt><a href=info.html#/mob/proc/Logout>Logout</a>
+    </dl></dd>
+    <dt><a href=info.html#/mob/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/mob/var/ckey>ckey</a>
+      <dt><a href=info.html#/mob/var/client>client</a>
+      <dt><a href=info.html#/mob/var/group>group</a>
+      <dt><a href=info.html#/mob/var/key>key</a>
+      <dt><a href=info.html#/mob/var/parent_type>parent_type</a>
+      <dt><a href=info.html#/mob/var/see_in_dark>see_in_dark</a>
+      <dt><a href=info.html#/mob/var/see_infrared>see_infrared</a>
+      <dt><a href=info.html#/mob/var/see_invisible>see_invisible</a>
+      <dt><a href=info.html#/mob/var/sight>sight</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/mutable_appearance>mutable_appearance</a>
+  <dd><dl>
+    <dt><a href=info.html#/mutable_appearance/var>var</a></dt>
+  </dl></dd>
+  <dt><a href=info.html#/obj>obj</a>
+  <dd><dl>
+    <dt><a href=info.html#/obj/proc>proc</a>
+    <dt><a href=info.html#/obj/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/obj/var/parent_type>parent_type</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/operator>operator</a>
+  <dd><dl>
+    <dt><a href=info.html#/operator/!>!</a>
+    <dt><a href=info.html#/operator/!=>!=</a>
+    <dt><a href=info.html#/operator/%>%</a>
+    <dt><a href=info.html#/operator/%=>%=</a>
+    <dt><a href=info.html#/operator/&>&</a>
+    <dt><a href=info.html#/operator/&&>&&</a>
+    <dt><a href=info.html#/operator/&=>&=</a>
+    <dt><a href=info.html#/operator/&gt;>&gt;</a>
+    <dt><a href=info.html#/operator/&gt;&gt;>&gt;&gt;</a>
+    <dd><dl>
+      <dt><a href=info.html#/operator/&gt;&gt;/input>input</a>
+      <dt><a href=info.html#/operator/&gt;&gt;/shift>shift</a>
+    </dl></dd>
+    <dt><a href=info.html#/operator/&gt;&gt;=>&gt;&gt;=</a>
+    <dt><a href=info.html#/operator/&gt;=>&gt;=</a>
+    <dt><a href=info.html#/operator/&lt;>&lt;</a>
+    <dt><a href=info.html#/operator/&lt;&gt;>&lt;&gt;</a>
+    <dt><a href=info.html#/operator/&lt;&lt;>&lt;&lt;</a>
+    <dd><dl>
+      <dt><a href=info.html#/operator/&lt;&lt;/output>output</a>
+      <dt><a href=info.html#/operator/&lt;&lt;/shift>shift</a>
+    </dl></dd>
+    <dt><a href=info.html#/operator/&lt;&lt;=>&lt;&lt;=</a>
+    <dt><a href=info.html#/operator/&lt;=>&lt;=</a>
+    <dt><a href=info.html#/operator/()>()</a>
+    <dt><a href=info.html#/operator/*>*</a>
+    <dt><a href=info.html#/operator/**>**</a>
+    <dt><a href=info.html#/operator/*=>*=</a>
+    <dt><a href=info.html#/operator/+>+</a>
+    <dt><a href=info.html#/operator/++>++</a>
+    <dt><a href=info.html#/operator/+=>+=</a>
+    <dt><a href=info.html#/operator/->-</a>
+    <dt><a href=info.html#/operator/-->--</a>
+    <dt><a href=info.html#/operator/-=>-=</a>
+    <dt><a href=info.html#/operator//>/</a>
+    <dt><a href=info.html#/operator//=>/=</a>
+    <dt><a href=info.html#/operator/:>:</a>
+    <dt><a href=info.html#/operator/=>=</a>
+    <dt><a href=info.html#/operator/==>==</a>
+    <dt><a href=info.html#/operator/@dt;>.</a>
+    <dt><a href=info.html#/operator/@qu;>?</a>
+    <dt><a href=info.html#/operator/[]>[]</a>
+    <dt><a href=info.html#/operator/^>^</a>
+    <dt><a href=info.html#/operator/^=>^=</a>
+    <dt><a href=info.html#/operator/in>in</a>
+    <dt><a href=info.html#/operator/path>path</a>
+    <dd><dl>
+      <dt><a href=info.html#/operator/path//>/</a>
+      <dt><a href=info.html#/operator/path/:>:</a>
+      <dt><a href=info.html#/operator/path/@dt;>.</a>
+    </dl></dd>
+    <dt><a href=info.html#/operator/|>|</a>
+    <dt><a href=info.html#/operator/|=>|=</a>
+    <dt><a href=info.html#/operator/||>||</a>
+    <dt><a href=info.html#/operator/~>~</a>
+  </dl></dd>
+  <dt><a href=info.html#/proc>proc</a>
+  <dd><dl>
+    <dt><a href=info.html#/proc/@dt;>.</a>
+    <dt><a href=info.html#/proc/@dt;@dt;>..</a>
+    <dt><a href=info.html#/proc/ASSERT>ASSERT</a>
+    <dt><a href=info.html#/proc/CRASH>CRASH</a>
+    <dt><a href=info.html#/proc/abs>abs</a>
+    <dt><a href=info.html#/proc/addtext>addtext</a>
+    <dt><a href=info.html#/proc/alert>alert</a>
+    <dt><a href=info.html#/proc/animate>animate</a>
+    <dt><a href=info.html#/proc/arccos>arccos</a>
+    <dt><a href=info.html#/proc/arcsin>arcsin</a>
+    <dt><a href=info.html#/proc/arglist>arglist</a>
+    <dt><a href=info.html#/proc/arguments>arguments</a>
+    <dd><dl>
+      <dt><a href=info.html#/proc/arguments/named>named</a>
+    </dl></dd>
+    <dt><a href=info.html#/proc/ascii2text>ascii2text</a>
+    <dt><a href=info.html#/proc/block>block</a>
+    <dt><a href=info.html#/proc/bounds>bounds</a>
+    <dt><a href=info.html#/proc/bounds_dist>bounds_dist</a>
+    <dt><a href=info.html#/proc/break>break</a>
+    <dt><a href=info.html#/proc/browse>browse</a>
+    <dt><a href=info.html#/proc/browse_rsc>browse_rsc</a>
+    <dt><a href=info.html#/proc/call>call</a>
+    <dt><a href=info.html#/proc/try>catch</a>
+    <dt><a href=info.html#/proc/ckey>ckey</a>
+    <dt><a href=info.html#/proc/ckeyEx>ckeyEx</a>
+    <dt><a href=info.html#/proc/cmptext>cmptext</a>
+    <dt><a href=info.html#/proc/cmptextEx>cmptextEx</a>
+    <dt><a href=info.html#/proc/continue>continue</a>
+    <dt><a href=info.html#/proc/copytext>copytext</a>
+    <dt><a href=info.html#/proc/cos>cos</a>
+    <dt><a href=info.html#/proc/del>del</a>
+    <dt><a href=info.html#/proc/do>do</a>
+    <dt><a href=info.html#/proc/EXCEPTION>EXCEPTION</a>
+    <dt><a href=info.html#/proc/fcopy>fcopy</a>
+    <dt><a href=info.html#/proc/fcopy_rsc>fcopy_rsc</a>
+    <dt><a href=info.html#/proc/fdel>fdel</a>
+    <dt><a href=info.html#/proc/fexists>fexists</a>
+    <dt><a href=info.html#/proc/file>file</a>
+    <dt><a href=info.html#/proc/file2text>file2text</a>
+    <dt><a href=info.html#/proc/findlasttext>findlasttext</a>
+    <dt><a href=info.html#/proc/findlasttextEx>findlasttextEx</a>
+    <dt><a href=info.html#/proc/findtext>findtext</a>
+    <dt><a href=info.html#/proc/findtextEx>findtextEx</a>
+    <dt><a href=info.html#/proc/flick>flick</a>
+    <dt><a href=info.html#/proc/flist>flist</a>
+    <dt><a href=info.html#/proc/for>for</a>
+    <dd><dl>
+      <dt><a href=info.html#/proc/for/list>list</a>
+      <dt><a href=info.html#/proc/for/loop>loop</a>
+    </dl></dd>
+    <dt><a href=info.html#/proc/ftp>ftp</a>
+    <dt><a href=info.html#/proc/get_dir>get_dir</a>
+    <dt><a href=info.html#/proc/get_dist>get_dist</a>
+    <dt><a href=info.html#/proc/get_step>get_step</a>
+    <dt><a href=info.html#/proc/get_step_away>get_step_away</a>
+    <dt><a href=info.html#/proc/get_step_rand>get_step_rand</a>
+    <dt><a href=info.html#/proc/get_step_to>get_step_to</a>
+    <dt><a href=info.html#/proc/get_step_towards>get_step_towards</a>
+    <dt><a href=info.html#/proc/goto>goto</a>
+    <dt><a href=info.html#/proc/hascall>hascall</a>
+    <dt><a href=info.html#/proc/hearers>hearers</a>
+    <dt><a href=info.html#/proc/html_decode>html_decode</a>
+    <dt><a href=info.html#/proc/html_encode>html_encode</a>
+    <dt><a href=info.html#/proc/icon>icon</a>
+    <dt><a href=info.html#/proc/icon_states>icon_states</a>
+    <dt><a href=info.html#/proc/if>if</a>
+    <dt><a href=info.html#/proc/image>image</a>
+    <dt><a href=info.html#/proc/initial>initial</a>
+    <dt><a href=info.html#/proc/input>input</a>
+    <dt><a href=info.html#/proc/isarea>isarea</a>
+    <dt><a href=info.html#/proc/isfile>isfile</a>
+    <dt><a href=info.html#/proc/isicon>isicon</a>
+    <dt><a href=info.html#/proc/isloc>isloc</a>
+    <dt><a href=info.html#/proc/ismob>ismob</a>
+    <dt><a href=info.html#/proc/isnull>isnull</a>
+    <dt><a href=info.html#/proc/isnum>isnum</a>
+    <dt><a href=info.html#/proc/isobj>isobj</a>
+    <dt><a href=info.html#/proc/ispath>ispath</a>
+    <dt><a href=info.html#/proc/issaved>issaved</a>
+    <dt><a href=info.html#/proc/istext>istext</a>
+    <dt><a href=info.html#/proc/isturf>isturf</a>
+    <dt><a href=info.html#/proc/istype>istype</a>
+    <dt><a href=info.html#/proc/jointext>jointext</a>
+    <dt><a href=info.html#/proc/json_decode>json_decode</a>
+    <dt><a href=info.html#/proc/json_encode>json_encode</a>
+    <dt><a href=info.html#/proc/length>length</a>
+    <dt><a href=info.html#/proc/lentext>lentext</a>
+    <dt><a href=info.html#/proc/link>link</a>
+    <dt><a href=info.html#/proc/list>list</a>
+    <dt><a href=info.html#/proc/list2params>list2params</a>
+    <dt><a href=info.html#/proc/locate>locate</a>
+    <dt><a href=info.html#/proc/log>log</a>
+    <dt><a href=info.html#/proc/lowertext>lowertext</a>
+    <dt><a href=info.html#/proc/matrix>matrix</a>
+    <dt><a href=info.html#/proc/max>max</a>
+    <dt><a href=info.html#/proc/md5>md5</a>
+    <dt><a href=info.html#/proc/min>min</a>
+    <dt><a href=info.html#/proc/missile>missile</a>
+    <dt><a href=info.html#/proc/new>new</a>
+    <dt><a href=info.html#/proc/newlist>newlist</a>
+    <dt><a href=info.html#/proc/nonspantext>nonspantext</a>
+    <dt><a href=info.html#/proc/num2text>num2text</a>
+    <dt><a href=info.html#/proc/obounds>obounds</a>
+    <dt><a href=info.html#/proc/ohearers>ohearers</a>
+    <dt><a href=info.html#/proc/orange>orange</a>
+    <dt><a href=info.html#/proc/output>output</a>
+    <dt><a href=info.html#/proc/oview>oview</a>
+    <dt><a href=info.html#/proc/oviewers>oviewers</a>
+    <dt><a href=info.html#/proc/params2list>params2list</a>
+    <dt><a href=info.html#/proc/pick>pick</a>
+    <dt><a href=info.html#/proc/prob>prob</a>
+    <dt><a href=info.html#/proc/rand>rand</a>
+    <dt><a href=info.html#/proc/rand_seed>rand_seed</a>
+    <dt><a href=info.html#/proc/range>range</a>
+    <dt><a href=info.html#/proc/regex>regex</a>
+    <dt><a href=info.html#/proc/REGEX_QUOTE>REGEX_QUOTE</a>
+    <dt><a href=info.html#/proc/replacetext>replacetext</a>
+    <dt><a href=info.html#/proc/replacetextEx>replacetextEx</a>
+    <dt><a href=info.html#/proc/return>return</a>
+    <dt><a href=info.html#/proc/rgb>rgb</a>
+    <dt><a href=info.html#/proc/roll>roll</a>
+    <dt><a href=info.html#/proc/round>round</a>
+    <dt><a href=info.html#/proc/run>run</a>
+    <dt><a href=info.html#/proc/set>set</a>
+    <dd><dl>
+      <dt><a href=info.html#/proc/set/background>background</a>
+    </dl></dd>
+    <dt><a href=info.html#/proc/shell>shell</a>
+    <dt><a href=info.html#/proc/shutdown>shutdown</a>
+    <dt><a href=info.html#/proc/sin>sin</a>
+    <dt><a href=info.html#/proc/sleep>sleep</a>
+    <dt><a href=info.html#/proc/sorttext>sorttext</a>
+    <dt><a href=info.html#/proc/sorttextEx>sorttextEx</a>
+    <dt><a href=info.html#/proc/sound>sound</a>
+    <dt><a href=info.html#/proc/spantext>spantext</a>
+    <dt><a href=info.html#/proc/spawn>spawn</a>
+    <dt><a href=info.html#/proc/splittext>splittext</a>
+    <dt><a href=info.html#/proc/sqrt>sqrt</a>
+    <dt><a href=info.html#/proc/startup>startup</a>
+    <dt><a href=info.html#/proc/stat>stat</a>
+    <dt><a href=info.html#/proc/statpanel>statpanel</a>
+    <dt><a href=info.html#/proc/step>step</a>
+    <dt><a href=info.html#/proc/step_away>step_away</a>
+    <dt><a href=info.html#/proc/step_rand>step_rand</a>
+    <dt><a href=info.html#/proc/step_to>step_to</a>
+    <dt><a href=info.html#/proc/step_towards>step_towards</a>
+    <dt><a href=info.html#/proc/switch>switch</a>
+    <dt><a href=info.html#/proc/text>text</a>
+    <dt><a href=info.html#/proc/text2ascii>text2ascii</a>
+    <dt><a href=info.html#/proc/text2file>text2file</a>
+    <dt><a href=info.html#/proc/text2num>text2num</a>
+    <dt><a href=info.html#/proc/text2path>text2path</a>
+    <dt><a href=info.html#/proc/throw>throw</a>
+    <dt><a href=info.html#/proc/time2text>time2text</a>
+    <dt><a href=info.html#/proc/try>try</a>
+    <dt><a href=info.html#/proc/turn>turn</a>
+    <dd><dl>
+      <dt><a href=info.html#/proc/turn/icon>icon</a>
+      <dt><a href=info.html#/proc/turn/matrix>matrix</a>
+    </dl></dd>
+    <dt><a href=info.html#/proc/typesof>typesof</a>
+    <dt><a href=info.html#/proc/uppertext>uppertext</a>
+    <dt><a href=info.html#/proc/url_decode>url_decode</a>
+    <dt><a href=info.html#/proc/url_encode>url_encode</a>
+    <dt><a href=info.html#/proc/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/proc/var/@dt;>.</a>
+      <dt><a href=info.html#/proc/var/args>args</a>
+      <dt><a href=info.html#/proc/var/global>global</a>
+      <dt><a href=info.html#/proc/var/src>src</a>
+      <dt><a href=info.html#/proc/var/usr>usr</a>
+    </dl></dd>
+    <dt><a href=info.html#/proc/view>view</a>
+    <dt><a href=info.html#/proc/viewers>viewers</a>
+    <dt><a href=info.html#/proc/walk>walk</a>
+    <dt><a href=info.html#/proc/walk_away>walk_away</a>
+    <dt><a href=info.html#/proc/walk_rand>walk_rand</a>
+    <dt><a href=info.html#/proc/walk_to>walk_to</a>
+    <dt><a href=info.html#/proc/walk_towards>walk_towards</a>
+    <dt><a href=info.html#/proc/while>while</a>
+    <dt><a href=info.html#/proc/winclone>winclone</a>
+    <dt><a href=info.html#/proc/winexists>winexists</a>
+    <dt><a href=info.html#/proc/winget>winget</a>
+    <dt><a href=info.html#/proc/winset>winset</a>
+    <dt><a href=info.html#/proc/winshow>winshow</a>
+  </dl></dd>
+  <dt><a href=info.html#/regex>regex</a>
+  <dd><dl>
+    <dt><a href=info.html#/regex/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/regex/proc/Find>Find</a>
+      <dt><a href=info.html#/regex/proc/New>New</a>
+      <dt><a href=info.html#/regex/proc/Replace>Replace</a>
+    </dl></dd>
+    <dt><a href=info.html#/regex/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/regex/var/flags>flags</a>
+      <dt><a href=info.html#/regex/var/group>group</a>
+      <dt><a href=info.html#/regex/var/index>index</a>
+      <dt><a href=info.html#/regex/var/match>match</a>
+      <dt><a href=info.html#/regex/var/name>name</a>
+      <dt><a href=info.html#/regex/var/next>next</a>
+      <dt><a href=info.html#/regex/var/text>text</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/savefile>savefile</a>
+  <dd><dl>
+    <dt><a href=info.html#/savefile/operator>operator</a>
+    <dd><dl>
+      <dt><a href=info.html#/savefile/operator/&gt;&gt;>&gt;&gt;</a>
+      <dt><a href=info.html#/savefile/operator/&lt;&lt;>&lt;&lt;</a>
+    </dl></dd>
+    <dt><a href=info.html#/savefile/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/savefile/proc/ExportText>ExportText</a>
+      <dt><a href=info.html#/savefile/proc/Flush>Flush</a>
+      <dt><a href=info.html#/savefile/proc/ImportText>ImportText</a>
+      <dt><a href=info.html#/savefile/proc/Lock>Lock</a>
+      <dt><a href=info.html#/savefile/proc/New>New</a>
+      <dt><a href=info.html#/savefile/proc/Unlock>Unlock</a>
+    </dl></dd>
+    <dt><a href=info.html#/savefile/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/savefile/var/cd>cd</a>
+      <dt><a href=info.html#/savefile/var/dir>dir</a>
+      <dt><a href=info.html#/savefile/var/eof>eof</a>
+      <dt><a href=info.html#/savefile/var/name>name</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/sound>sound</a>
+  <dd><dl>
+    <dt><a href=info.html#/sound/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/sound/var/file>file</a>
+      <dt><a href=info.html#/sound/var/repeat>repeat</a>
+      <dt><a href=info.html#/sound/var/wait>wait</a>
+      <dt><a href=info.html#/sound/var/channel>channel</a>
+      <dt><a href=info.html#/sound/var/volume>volume</a>
+      <dt><a href=info.html#/sound/var/frequency>frequency</a>
+      <dt><a href=info.html#/sound/var/pan>pan</a>
+      <dt><a href=info.html#/sound/var/priority>priority</a>
+      <dt><a href=info.html#/sound/var/status>status</a>
+      <dt><a href=info.html#/sound/var/xyz>x, y, z</a>
+      <dt><a href=info.html#/sound/var/falloff>falloff</a>
+      <dt><a href=info.html#/sound/var/environment>environment</a>
+      <dt><a href=info.html#/sound/var/echo>echo</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/turf>turf</a>
+  <dd><dl>
+    <dt><a href=info.html#/turf/proc>proc</a>
+    <dt><a href=info.html#/turf/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/turf/var/parent_type>parent_type</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/var>var</a>
+  <dd><dl>
+    <dt><a href=info.html#/var/const>const</a>
+    <dt><a href=info.html#/var/global>global</a>
+    <dt><a href=info.html#/var/tmp>tmp</a>
+  </dl></dd>
+  <dt><a href=info.html#/verb>verb</a>
+  <dd><dl>
+    <dt><a href=info.html#/verb/arguments>arguments</a>
+    <dd><dl>
+      <dt><a href=info.html#/verb/arguments/expanding>expanding</a>
+    </dl></dd>
+    <dt><a href=info.html#/verb/set>set</a>
+    <dd><dl>
+      <dt><a href=info.html#/verb/set/category>category</a>
+      <dt><a href=info.html#/verb/set/desc>desc</a>
+      <dt><a href=info.html#/verb/set/hidden>hidden</a>
+      <dt><a href=info.html#/verb/set/instant>instant</a>
+      <dt><a href=info.html#/verb/set/invisibility>invisibility</a>
+      <dt><a href=info.html#/verb/set/name>name</a>
+      <dt><a href=info.html#/verb/set/popup_menu>popup_menu</a>
+      <dt><a href=info.html#/verb/set/src>src</a>
+      <dt><a href=info.html#/verb/set/visibility>visibility</a>
+    </dl></dd>
+    <dt><a href=info.html#/verb/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/verb/var/@dt;>.</a>
+      <dt><a href=info.html#/verb/var/args>args</a>
+      <dt><a href=info.html#/verb/var/src>src</a>
+      <dt><a href=info.html#/verb/var/usr>usr</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/world>world</a>
+  <dd><dl>
+    <dt><a href=info.html#/world/proc>proc</a>
+    <dd><dl>
+      <dt><a href=info.html#/world/proc/AddCredits>AddCredits</a>
+      <dt><a href=info.html#/world/proc/ClearMedal>ClearMedal</a>
+      <dt><a href=info.html#/world/proc/Del>Del</a>
+      <dt><a href=info.html#/world/proc/Export>Export</a>
+      <dt><a href=info.html#/world/proc/Error>Error</a>
+      <dt><a href=info.html#/world/proc/GetConfig>GetConfig</a>
+      <dt><a href=info.html#/world/proc/GetCredits>GetCredits</a>
+      <dt><a href=info.html#/world/proc/GetMedal>GetMedal</a>
+      <dt><a href=info.html#/world/proc/GetScores>GetScores</a>
+      <dt><a href=info.html#/world/proc/Import>Import</a>
+      <dt><a href=info.html#/world/proc/IsBanned>IsBanned</a>
+      <dt><a href=info.html#/world/proc/IsSubscribed>IsSubscribed</a>
+      <dt><a href=info.html#/world/proc/New>New</a>
+      <dt><a href=info.html#/world/proc/OpenPort>OpenPort</a>
+      <dt><a href=info.html#/world/proc/PayCredits>PayCredits</a>
+      <dt><a href=info.html#/world/proc/Reboot>Reboot</a>
+      <dt><a href=info.html#/world/proc/Repop>Repop</a>
+      <dt><a href=info.html#/world/proc/SetConfig>SetConfig</a>
+      <dt><a href=info.html#/world/proc/SetMedal>SetMedal</a>
+      <dt><a href=info.html#/world/proc/SetScores>SetScores</a>
+      <dt><a href=info.html#/world/proc/Topic>Topic</a>
+    </dl></dd>
+    <dt><a href=info.html#/world/var>var</a>
+    <dd><dl>
+      <dt><a href=info.html#/world/var/address>address</a>
+      <dt><a href=info.html#/world/var/area>area</a>
+      <dt><a href=info.html#/world/var/byond_version>byond_version</a>
+      <dt><a href=info.html#/world/var/cache_lifespan>cache_lifespan</a>
+      <dt><a href=info.html#/world/var/contents>contents</a>
+      <dt><a href=info.html#/world/var/cpu>cpu</a>
+      <dt><a href=info.html#/world/var/executor>executor</a>
+      <dt><a href=info.html#/world/var/fps>fps</a>
+      <dt><a href=info.html#/world/var/game_state>game_state</a>
+      <dt><a href=info.html#/world/var/host>host</a>
+      <dt><a href=info.html#/world/var/hub>hub</a>
+      <dt><a href=info.html#/world/var/hub_password>hub_password</a>
+      <dt><a href=info.html#/world/var/icon_size>icon_size</a>
+      <dt><a href=info.html#/world/var/internet_address>internet_address</a>
+      <dt><a href=info.html#/world/var/log>log</a>
+      <dt><a href=info.html#/world/var/loop_checks>loop_checks</a>
+      <dt><a href=info.html#/world/var/map_format>map_format</a>
+      <dt><a href=info.html#/world/var/maxx>maxx</a>
+      <dt><a href=info.html#/world/var/maxy>maxy</a>
+      <dt><a href=info.html#/world/var/maxz>maxz</a>
+      <dt><a href=info.html#/world/var/mob>mob</a>
+      <dt><a href=info.html#/world/var/name>name</a>
+      <dt><a href=info.html#/world/var/params>params</a>
+      <dt><a href=info.html#/world/var/port>port</a>
+      <dt><a href=info.html#/world/var/realtime>realtime</a>
+      <dt><a href=info.html#/world/var/reachable>reachable</a>
+      <dt><a href=info.html#/world/var/sleep_offline>sleep_offline</a>
+      <dt><a href=info.html#/world/var/status>status</a>
+      <dt><a href=info.html#/world/var/system_type>system_type</a>
+      <dt><a href=info.html#/world/var/tick_lag>tick_lag</a>
+      <dt><a href=info.html#/world/var/tick_usage>tick_usage</a>
+      <dt><a href=info.html#/world/var/time>time</a>
+      <dt><a href=info.html#/world/var/timeofday>timeofday</a>
+      <dt><a href=info.html#/world/var/turf>turf</a>
+      <dt><a href=info.html#/world/var/url>url</a>
+      <dt><a href=info.html#/world/var/version>version</a>
+      <dt><a href=info.html#/world/var/view>view</a>
+      <dt><a href=info.html#/world/var/visibility>visibility</a>
+    </dl></dd>
+  </dl></dd>
+  <dt><a href=info.html#/{notes}>Special notes</a>
+  <dd><dl>
+    <dt><a href=info.html#/{notes}/BACKGROUND_LAYER>BACKGROUND_LAYER</a>
+    <dt><a href=info.html#/{notes}/big-icons>Big icons</a>
+    <dt><a href=info.html#/{notes}/color-matrix>Color matrix</a>
+    <dt><a href=info.html#/{notes}/EFFECTS_LAYER>EFFECTS_LAYER</a>
+    <dt><a href=info.html#/{notes}/gliding>Gliding</a>
+    <dt><a href=info.html#/{notes}/HUD>HUD / screen objects</a>
+    <dt><a href=info.html#/{notes}/isometric>Isometric maps</a>
+    <dt><a href=info.html#/{notes}/pixel-movement>Pixel movement</a>
+    <dt><a href=info.html#/{notes}/regex>Regular expressions</a>
+    <dt><a href=info.html#/{notes}/side>Side-view maps</a>
+    <dt><a href=info.html#/{notes}/tiled-icons>Tiled icons</a>
+    <dt><a href=info.html#/{notes}/topdown>Topdown maps</a>
+    <dt><a href=info.html#/{notes}/TOPDOWN_LAYER>TOPDOWN_LAYER</a>
+  </dl></dd>
+</dl></dd>
+</body>
+</html>

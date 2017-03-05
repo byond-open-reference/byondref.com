@@ -1,0 +1,20 @@
+<html>
+<head>
+	<title>DM Reference</title>
+	<script><!--
+	window.addEventListener('message', function(m){
+		try {
+			if(m.source == frames.ref || m.source == frames.ref.contentWindow) {
+				frames.contents.contentWindow.postMessage(m.data, '*');
+			}
+		} catch(_){console.log(_);}
+	});
+	//--></script>
+</head>
+
+<frameset cols="300,*">
+<frame id="contents" src="contents.html">
+<frame src="info.html" id="ref" name="ref" onload="ref.location.hash=window.location.hash">
+</frameset>
+
+</html>

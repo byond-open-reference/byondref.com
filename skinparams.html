@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>BYOND 5.0 controls and parameters guide</title>
+<style>
+  body {font: 9pt "Trebuchet MS",Tahoma,Arial,Helvetica,sans-serif;color:black;background:white}
+  h1 {font-size: 3em; font-weight:bold; text-align:center}
+  h2 {font-size: 2em; font-weight:bold; text-align:center}
+  h3 {font-size: 1.5em; font-weight:bold; text-align:left}
+  h4 {font-size: 1.5em; font-weight:bold; margin-top:0}
+  h1 + h4 {text-align:center;}
+  h3 tt {font-size: 1.1em}
+  table {border-right: 1px black solid; border-bottom: 1px black solid}
+  td, th {font-size: 9pt; border-left: 1px black solid; border-top: 1px black solid}
+  td.misc, th.misc {text-align:left}
+  td.param {text-align:right; font-family: monospace; white-space: nowrap}
+  th {font-weight:bold}
+  td, thead th {text-align:center}
+  thead th {background:#aaa;}
+  tbody th {text-align:right}
+  table.overview td, table.overview thead th {background:#808080; white-space: nowrap}
+  table.overview tbody th, table.overview th.general {background: #aab}
+  table.overview td.general {background: #eef}
+  table.overview th.main {background: #975}
+  table.overview td.main {background: #cba}
+  table.overview th.label {background: #cf9}
+  table.overview td.label {background: #efd}
+  table.overview th.button {background: #c69}
+  table.overview td.button {background: #fbd}
+  table.overview th.input {background: #faa}
+  table.overview td.input {background: #fdd}
+  table.overview th.output {background: #ffd4aa}
+  table.overview td.output {background: #fed}
+  table.overview th.browser {background: #ffa}
+  table.overview td.browser {background: #ffd}
+  table.overview th.map {background: #afa}
+  table.overview td.map {background: #dfd}
+  table.overview th.info {background: #aad4ff}
+  table.overview td.info {background: #def}
+  table.overview th.child {background: #aaf}
+  table.overview td.child {background: #ddf}
+  table.overview th.tab {background: #d4aaff}
+  table.overview td.tab {background: #edf}
+  table.overview th.grid {background: #faf}
+  table.overview td.grid {background: #fdf}
+  table.overview th.bar {background: #f39}
+  table.overview td.bar {background: #f9c}
+  table.overview a {color:black; text-decoration:none;}
+  table.notes td {text-align:left; white-space:normal}
+  table.notes th {vertical-align:top}
+  .macro_info {max-width: 75%; margin: 0 auto; text-align: center;}
+  .macro_info td, .macro_info th, .macro_info thead th {text-align: left; vertical-align: top;}
+  .macro_head {background: #aaa;}
+  .macro_head {background: #aaa;}
+  div#hoverdiv {width:25%; padding:1em; color:black; background:white; border:1px solid black; position:absolute;}
+  #hoverdiv a {color:black; text-decoration:none}
+  #hoverdiv table {border:0;}
+  #hoverdiv td {border:0; text-align:left;}
+</style>
+</head>
+<body>
+
+<h1>BYOND 5.0 controls and parameters guide</h1>
+<h4>Build 511</h4>
+
+<h2>Control overview</h2>
+
+<center><table class="overview" id="overviewtable" cellspacing=0 cellpadding=3>
+<thead>
+<tr>
+<th>&nbsp;</th>
+<th class="general">All</th>
+<th class="main">Window (Main)</th>
+<th class="label">Label</th>
+<th class="button">Button</th>
+<th class="input">Input</th>
+<th class="output">Output</th>
+<th class="browser">Browser</th>
+<th class="map">Map</th>
+<th class="info">Info</th>
+<th class="child">Child</th>
+<th class="tab">Tab</th>
+<th class="grid">Grid</th>
+<th class="bar">Bar</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<th>Size &amp; position</th>
+<td class="general">pos<br/>size<br/>anchor1<br/>anchor2</td>
+<td class="main">can-minimize<br/>can-resize<br/>is-minimized<br/>is-maximized</td>
+<td class="blank" colspan=5>&nbsp;</td>
+<td class="map">view-size</td>
+<td class="blank">&nbsp;</td>
+<td class="child">lock</td>
+<td class="blank">&nbsp;</td>
+<td class="grid">cells<br/>cell-span<br/>is-list</td>
+<td class="bar">width</td>
+</tr>
+
+<tr>
+<th>General appearance</th>
+<td class="general">is-visible<br/>is-transparent<br/>border<br/>flash<br/>saved-params</td>
+<td class="main">alpha<br/>statusbar</td>
+<td class="blank">&nbsp;</td>
+<td class="button">is-flat</td>
+<td class="input">multi-line</td>
+<td class="output">style<br/>max-lines</td>
+<td class="blank">&nbsp;</td>
+<td class="map">style</td>
+<td class="info">multi-line</td>
+<td class="child">is-vert</td>
+<td class="tab">multi-line</td>
+<td class="grid">show-lines<br/>style</td>
+<td class="bar">dir<br/>angle1<br/>angle2</td>
+</tr>
+
+<tr>
+<th>Color</th>
+<td class="general">text-color<br/>background-color</td>
+<td class="main">transparent-color</td>
+<td colspan=3 class="blank">&nbsp;</td>
+<td class="output">link-color<br/>visited-color</td>
+<td colspan=2 class="blank">&nbsp;</td>
+<td class="info">highlight-color<br/>tab-text-color<br/>tab-background-color<br/>prefix-color<br/>suffix-color</td>
+<td colspan=2 class="blank">&nbsp;</td>
+<td class="grid">highlight-color<br/>line-color<br/>link-color<br/>visited-color</td>
+<td class="bar">bar-color</td>
+</tr>
+
+<tr>
+<th>User interaction</th>
+<td class="general">is-default<br/>is-disabled<br/>focus<br/>drop-zone<br/>right-click</td>
+<td class="main">can-close</td>
+<td>&nbsp;</td>
+<td class="button">is-checked<br/>group<br/>button-type</td>
+<td class="input">is-password<br/>no-command</td>
+<td class="blank">&nbsp;</td>
+<td class="browser">show-history<br/>show-url</td>
+<td colspan=2 class="blank">&nbsp;</td>
+<td class="child">splitter<br/>show-splitter</td>
+<td class="tab">current-tab</td>
+<td class="grid">current-cell</td>
+<td class="bar">is-slider<br/>value</td>
+</tr>
+
+<tr>
+<th>Text &amp; title</th>
+<td class="general">font-family<br/>font-size<br/>font-style</td>
+<td class="main">title<br/>titlebar</td>
+<td class="label">text<br/>align<br/>text-wrap</td>
+<td class="button">text</td>
+<td class="input">text</td>
+<td class="blank">&nbsp;</td>
+<td class="browser">use-title</td>
+<td class="map">text-mode</td>
+<td class="info">allow-html<br/>tab-font-family<br/>tab-font-size<br/>tab-font-style</td>
+<td colspan=2 class="blank">&nbsp;</td>
+<td class="grid">show-names</td>
+<td class="blank">&nbsp;</td>
+</tr>
+
+<tr>
+<th>Images</th>
+<td>&nbsp;</td>
+<td class="main">icon<br/>image<br/>image-mode<br/>keep-aspect</td>
+<td class="label">image<br/>image-mode<br/>keep-aspect</td>
+<td class="button">image</td>
+<td class="blank">&nbsp;</td>
+<td class="output">image<br/>enable-http-images</td>
+<td class="browser">auto-format</td>
+<td class="map">icon-size<br/>letterbox<br/>zoom<br/>zoom-mode</td>
+<td colspan=3 class="blank">&nbsp;</td>
+<td class="grid">small-icons<br/>enable-http-images</td>
+<td class="blank">&nbsp;</td>
+</tr>
+
+<tr>
+<th>Commands</th>
+<td class="general">on-size</td>
+<td class="main">macro<br/>menu<br/>on-close</td>
+<td class="blank">&nbsp;</td>
+<td class="button">command</td>
+<td class="input">command</td>
+<td class="blank">&nbsp;</td>
+<td class="browser">on-show<br/>on-hide</td>
+<td class="map">on-show<br/>on-hide</td>
+<td class="info">on-show<br/>on-hide<br/>on-tab</td>
+<td class="blank">&nbsp;</td>
+<td class="tab">on-tab</td>
+<td class="blank">&nbsp;</td>
+<td class="bar">on-change</td>
+</tr>
+
+<tr>
+<th>Panes</th>
+<td class="blank">&nbsp;</td>
+<td class="main">can-scroll<br/>is-pane</td>
+<td colspan=7 class="blank">&nbsp;</td>
+<td class="child">left<br/>right</td>
+<td class="tab">tabs</td>
+<td colspan=2 class="blank">&nbsp;</td>
+</tr>
+</tbody>
+
+</table></center>
+
+<h2>Important terms</h2>
+
+<dl>
+  <dt>Element</dt>
+    <dd>Any item in the skin file: A macro, menu, menu item, window, control, etc.</dd>
+  <dt>Control</dt>
+    <dd>Any piece of the interface that is part of a window (except for a menu). The window itself is also a control.</dd>
+  <dt>Window</dt>
+    <dd>A window that will appear on the player's desktop and can be moved around.</dd>
+  <dt>Pane</dt>
+    <dd>Acts like a window, but always goes inside another window and does not move around on its own.</dd>
+  <dt>Menu</dt>
+    <dd>A collection of menu items, each with a command. A menu can be attached to a window.</dd> 
+  <dt>Macro</dt>
+    <dd>A keyboard shortcut with a command. Macros belong to a set, which can be attached to a window.</dd> 
+</dl>
+
+<h2>Control types</h2>
+
+<dl>
+  <dt>Main</dt>
+  <dd>A window or a pane. A window is just the standard type of freestanding
+    window with titlebar, minimize box, etc. (all of which are optional). One
+    window should be a default in your project; it will be the main window.
+    Panes are meant to appear inside other windows, via the Child or Tab
+    controls. A window/pane can be cloned if a copy is needed, e.g. for another
+    scoring grid to put into a Tab control.</dd>
+  
+  <dt>Label</dt>
+  <dd>Text, a picture, or both.</dd>
+  
+  <dt>Button</dt>
+  <dd>A pushable button, checkbox, or radio button with text and/or a picture,
+    which sends a verb command when pressed. The command can also be a Dream
+    Seeker internal command like <tt>.winset</tt> or <tt>.host</tt>.</dd>
+  
+  <dt>Input</dt>
+  <dd>An box where commands are typed. It can be set up with a default command
+    that serves as a prefix to anything you type in. If used, one input control
+    should be a default in your project.</dd>
+  
+  <dt>Output</dt>
+  <dd>Text output, with partial HTML/CSS support. Regular game output
+    normally goes here. If used, one output control should be a default in your
+    project.</dd> 
+  
+  <dt>Browser</dt>
+  <dd>A built-in browser (currently IE) that can display regular HTML
+    documents. Good for interfaces that require JavaScript or more advanced
+    formatting than Output provides. <tt>browse()</tt> without a named window
+    will send anything over to your default browser control. If you use the
+    <tt>window</tt> parameter in <tt>browse()</tt>, output will be sent to
+    1) a browser within a window of that name, or 2) a browser with that name.
+    If neither is available, a generic window (a popup) will be created by that
+    name.</dd>
+  
+  <dt>Map</dt>
+  <dd>The game map, capable of displaying icons or character graphics. If used,
+    the main map control should be marked as a default. You can use other map
+    controls for secondary displays that support screen (HUD) objects only; see
+    screen_loc in the DM Reference for details. You can also display text on
+    the map via the atom.maptext var.</dd>
+  
+  <dt>Info</dt>
+  <dd>Traditional BYOND statpanels and verb panels. Partial HTML/CSS support
+    like the Grid control's is available as an option. If used, the info
+    control should be marked as a default. Multiple info controls are not
+    supported, but by putting it in a pane it can be moved to different Child
+    or Tab controls.</dd>
+  
+  <dt>Child</dt>
+  <dd>A control that holds panes. It can hold one pane which fills its entire
+    space, or two panes separated by a movable splitter. The panes may be
+    swapped in and out at runtime.</dd>
+  
+  <dt>Tab</dt>
+  <dd>A control that holds panes. The tab control can hold multiple panes,
+    which are accessed via the tabs. The title of each pane appears on the tab.
+    Tabs can be changed at runtime.</dd>
+  
+  <dt>Grid</dt>
+  <dd>A flexible grid with partial HTML/CSS support. Only one text style/color
+    per cell is available; background may be set by changing the <tt>body</tt>
+    element via CSS in a <tt>&lt;style&gt;</tt> tag. One image may be displayed
+    via the <tt>&lt;img&gt;</tt> tag, or a BYOND object by sending <tt>usr
+    &lt;&lt; output(object,grid)</tt>. 
+
+  <dt>Bar</dt>
+  <dd>A bar that can be used to show progress, health level, magic level, etc.,
+    or used as an adjustable slider. The bar can be straight or formed into an
+    arc. Any area not covered by the bar or slider is transparent, so you can
+    make an arc around another control.</dd> 
+</dl>
+
+<h2>Parameters in detail</h2>
+
+<center><table class="allparams" id="allparamstable" cellspacing=0 cellpadding=3>
+<thead><tr><th>Parameter</th><th>Format</th><th>Supported by</th><th>Default</th><th class="misc">Misc. info</th></tr></thead>
+<tbody id="paramsbody">
+
+<tr><td class="param">align</td><td>center <i>or</i> left <i>or</i> right <i>or</i> top <i>or</i> bottom <i>or</i> top-left <i>or</i> top-right <i>or</i> bottom-left <i>or</i> bottom-right</td><td>Label</td><td>center</td><td class="misc">Default alignment of text/image, both horizontal and vertical. A BYOND direction flag like WEST may be assigned to this parameter, or 0 for center alignment.</td></tr>
+<tr><td class="param">allow-html</td><td>true <i>or</i> false</td><td>Info</td><td>false</td><td class="misc">Allow HTML tags to be used in stat() info. The same limitations apply as to the <a href="#grids">Grid</a> control.</td></tr>
+<tr><td class="param">alpha</td><td>0 <i>to</i> 255</td><td>Main</td><td>255</td><td class="misc">Opacity; 255=opaque, 0=invisible.</td></tr>
+<tr><td class="param">anchor1</td><td>[x%],[y%] <i>or</i> none</td><td>All</td><td>none</td><td rowspan=2 class="misc"><a href="#anchors">Anchors</a> the control within the window/pane. 0,0 is the upper left, 100,100 the lower right. Use one anchor to manage the control's position only, or two to stretch it.</td></tr>
+<tr><td class="param">anchor2</td><td>[x%],[y%] <i>or</i> none</td><td>All</td><td>none</td></tr>
+<tr><td class="param">angle1</td><td>[angle]</td><td>Bar</td><td>0</td><td class="misc">The angle where the bar's arc starts, if <tt>dir</tt> is clockwise or counterclockwise. 0 is due north, 90 is east, etc.</td></tr>
+<tr><td class="param">angle2</td><td>[angle]</td><td>Bar</td><td>180</td><td class="misc">The angle where the bar's arc ends, if <tt>dir</tt> is clockwise or counterclockwise. 0 is due north, 90 is east, etc.</td></tr>
+<tr><td class="param">auto-format</td><td>true <i>or</i> false</td><td>Browser</td><td>true</td><td class="misc">Adds formatting to the HTML header so Internet Explorer can properly display PNG files with transparency. IE7 does not require this.</td></tr>
+<tr><td class="param">background-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>All</td><td>#fff</td><td class="misc">Affects background color. May not work the same in all controls.</td></tr>
+<tr><td class="param">bar-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>Bar</td><td>none</td><td class="misc">The color of the bar or slider.</td></tr>
+<tr><td class="param">border</td><td>none <i>or</i> line <i>or</i> sunken</td><td>All</td><td>none</td><td class="misc">Border type around the control or window. May not work the same in all controls.</td></tr>
+<tr><td class="param">button-type</td><td>pushbutton <i>or</i> pushbox <i>or</i> checkbox <i>or</i> radio</td><td>Button</td><td>pushbutton</td><td class="misc">Changes the type of button. A pushbox is a regular button that can be pushed in (used as a checkbox or radio control). A value of checkbox or radio will make it look like a simple checkbox or radio button.</td></tr>
+<tr><td class="param">can-check</td><td>true <i>or</i> false</td><td>Menu</td><td>false</td><td class="misc">Toggle the check on a menu item automatically (or treat it as a radio button, if group is specified) when it is clicked.</td></tr>
+<tr><td class="param">can-close</td><td>true <i>or</i> false</td><td>Main</td><td>true</td><td class="misc">Allow the window to be closed.</td></tr>
+<tr><td class="param">can-minimize</td><td>true <i>or</i> false</td><td>Main</td><td>true</td><td class="misc">Allow the window to be minimized.</td></tr>
+<tr><td class="param">can-resize</td><td>true <i>or</i> false</td><td>Main</td><td>true</td><td class="misc">Allow the window to be resized or maximized.</td></tr>
+<tr><td class="param">can-scroll</td><td>none <i>or</i> horizontal <i>or</i> vertical <i>or</i> both</td><td>Main</td><td>none</td><td class="misc">If the window is a <a href="#panes">pane</a>, it will retain its horizontal and/or vertical size and show scrollbars if necessary, instead of shrinking to fit the container.</td></tr>
+<tr><td class="param">command</td><td>"[verb]"</td><td>Button, Input, Menu, Macro</td><td>""</td><td class="misc"><a href="#commands">Command</a> executed when the button, menu item, or macro is activated; or the default command for an Input control. If used for Input, this command is followed by whatever the user types in. For input controls, if your command starts with an exclamation point (!), everything after the ! is shown as a default prompt that may be cleared by the user.</td></tr>
+<tr><td class="param">cell-span</td><td>[columns]x[rows]</td><td>Grid</td><td>1x1</td><td class="misc">The span of the current <a href="#grids">grid</a> cell; it can be merged with cells to the right and down. If <tt>is-list</tt> is true, this setting is ignored. This setting is only available at runtime.</td></tr>
+<tr><td class="param">cells</td><td>[columns]x[rows]</td><td>Grid</td><td>0x0</td><td class="misc">The number of columns and rows in the <a href="#grids">grid</a>. If <tt>is-list</tt> is true, this sets the maximum number of items in the list; it can be set to just a single value [items]. Setting the number of rows or columns to -1 means that value will not change.</td></tr>
+<tr><td class="param">current-cell</td><td>[column],[row]</td><td>Grid</td><td>0x0</td><td class="misc">The active cell. Any output sent to the <a href="#grids">grid</a> will go into this cell. If <tt>is-list</tt> is true, this can be set to <nobr>1,[item]</nobr> or just the item number.</td></tr>
+<tr><td class="param">current-tab</td><td>"[name]"</td><td>Tab</td><td>""</td><td class="misc">The name the active/default tab. If set to a tab that is not currently available, the <a href="#panes">pane</a> by that name will be added as another tab.</td></tr>
+<tr><td class="param">dir</td><td>north <i>or</i> south <i>or</i> east <i>or</i> west <i>or</i> clockwise <i>or</i> counterclockwise</td><td>Bar</td><td>east</td><td class="misc">The direction of the bar; as the value increases the bar will move further in this direction. The <tt>clockwise</tt> and <tt>counterclockwise</tt> directions will let you make an arc from <tt>angle1</tt> to <tt>angle2</tt>. You can use <tt>cw</tt> and <tt>ccw</tt> as shorthand for <tt>clockwise</tt> or <tt>counterclockwise</tt>.</td></tr>
+<tr><td class="param">drop-zone</td><td>true <i>or</i> false</td><td>All</td><td><i>varies</i></td><td class="misc">True if <a href="#mouse">dragged</a> objects may be dropped here. Default is true for Map, Info, and Grid controls, false for others.</td></tr>
+<tr><td class="param">enable-http-images</td><td>true <i>or</i> false</td><td>Output, Grid</td><td>false</td><td class="misc">Allows images to be pulled from the Web when using the &lt;img&gt; tag; otherwise only locally stored images can be shown.</td></tr>
+<tr><td class="param">flash</td><td>[times] <i>or</i> -1</td><td>All</td><td>0</td><td class="misc">Set to a value above 0 to make the control flash, 0 to stop flashing, or -1 to flash indefinitely. Currently this is only implemented for window controls even though the param exists for all controls.</td></tr>
+<tr><td class="param">focus</td><td>true <i>or</i> false</td><td>All</td><td>false</td><td class="misc">True if this control has focus; set to true to give it focus.</td></tr>
+<tr><td class="param">font-family</td><td>"[font name]"</td><td>All</td><td>""</td><td class="misc">Leave blank to use the default <a href="#fonts">font</a>. This can be used for CSS-style fallback fonts, e.g. "Arial,Helvetica".</td></tr>
+<tr><td class="param">font-size</td><td>[point size]</td><td>All</td><td>0</td><td class="misc">Leave 0 to use the default <a href="#fonts">font size</a>.</td></tr>
+<tr><td class="param">font-style</td><td>"bold" <i>or</i> "italic" <i>or</i> "underline" <i>or</i> "strike" <i>or</i> any combination</td><td>All</td><td>""</td><td class="misc">Sets the <a href="#fonts">font style</a>. Values can be combined if separated by spaces or commas.</td></tr>
+<tr><td class="param">group</td><td>"[name]" <i>or</i> ""</td><td>Button, Menu</td><td>""</td><td class="misc">If the button or menu item should be treated as part of a radio button group, this is the name of the group; otherwise <tt>group</tt> should be blank. Buttons in different windows, or menu items in another menu or submenu, are always treated as a different group.</td></tr>
+<tr><td class="param">highlight-color</td><td>#RRGGBB <i>or</i> #RGB</td><td>Grid, Info</td><td>#0f0</td><td class="misc">The color used to highlight moused-over statpanel items or verbs. In grids, this color is used when hovering over objects or links.</td></tr>
+<tr><td class="param">icon</td><td>'[file]'</td><td>Main</td><td>""</td><td class="misc">Custom icon used for the window. If this is a <a href="#panes">pane</a>, its icon will appear on the tab if the pane is inside a tab control. (The Windows .ico format is not used. Only image formats BYOND can already use are supported.)</td></tr>
+<tr><td class="param">icon-size</td><td>0 <i>or</i> [size]</td><td>Map</td><td>0</td><td class="misc">Size, in pixels, of icons on map. 0 stretches to fit available space; 32 is the BYOND standard icon size. Use zoom if you'd rather go by a ratio instead of pixels.</td></tr>
+<tr><td class="param">id</td><td>"[name]"</td><td>All</td><td><i>no&nbsp;default</i></td><td class="misc">The <a href="#element_id">name</a> of this control. If this is a Main control, (a window or pane) the name should be unique. Other controls can be referenced by [windowname].[controlname] at runtime. Read-only.</td></tr>
+<tr><td class="param">image</td><td>'[file]'</td><td>Main, Label, Button, Output</td><td>""</td><td class="misc">Image shown in label/button, or background image for window/pane or output. (Output control: See <a href="#notes">notes</a>.)</td></tr>
+<tr><td class="param">image-mode</td><td>center <i>or</i> stretch <i>or</i> tile</td><td>Main, Label</td><td>stretch</td><td class="misc">If using a background image, this decides how the image will fit the window/pane or label.</td></tr>
+<tr><td class="param">index</td><td>[N] <i>or</i> 0</td><td>Menu</td><td>1000</td><td class="misc">Moves the menu item to the <i>N</i>th position among its siblings. 0 or less is no change.</td></tr>
+<tr><td class="param">is-checked</td><td>true <i>or</i> false</td><td>Button, Menu</td><td>false</td><td class="misc">True if the button or menu item is currently checked. (Set <tt>button-type</tt> to use this with buttons, or <tt>can-check</tt> for menus.) Menu items allow manual checking even if <tt>can-check</tt> is false.</td></tr>
+<tr><td class="param">is-default</td><td>true <i>or</i> false</td><td>All</td><td>false</td><td class="misc">Specifies a <a href="#is_default">default control</a>. This should be set to true for your main window, map, info, and main output, input, and browser controls.</td></tr>
+<tr><td class="param">is-disabled</td><td>true <i>or</i> false</td><td>All, Menu, Macro</td><td>false</td><td class="misc">Disables the control, menu item, or macro.</td></tr>
+<tr><td class="param">is-flat</td><td>true <i>or</i> false</td><td>Button</td><td>false</td><td class="misc">Do not give this button a 3D appearance.</td></tr>
+<tr><td class="param">is-list</td><td>true <i>or</i> false</td><td>Grid</td><td>false</td><td class="misc">True if the <a href="#grids">grid</a> is used for a list of items; the number of columns and rows may change to fit them.</td></tr>
+<tr><td class="param">is-minimized</td><td>true <i>or</i> false</td><td>Main</td><td>false</td><td class="misc">Minimize the window.</td></tr>
+<tr><td class="param">is-maximized</td><td>true <i>or</i> false</td><td>Main</td><td>false</td><td class="misc">Maximize the window.</td></tr>
+<tr><td class="param">is-pane</td><td>true <i>or</i> false</td><td>Main</td><td>false</td><td class="misc">Make this a <a href="#panes">pane</a> that will be used in Child or Tab controls, not a regular window. Read-only.</td></tr>
+<tr><td class="param">is-password</td><td>true <i>or</i> false</td><td>Input</td><td>false</td><td class="misc">Hide text with asterisks. Copy to clipboard is not available in this mode, but the <tt>text</tt> parameter can still read the control's contents.</td></tr>
+<tr><td class="param">is-slider</td><td>true <i>or</i> false</td><td>Bar</td><td>false</td><td class="misc">The bar is an adjustable slider instead of a progress bar.</td></tr>
+<tr><td class="param">is-transparent</td><td>true <i>or</i> false</td><td>All</td><td>false</td><td class="misc">May not work for all controls. (See <a href="#notes">notes</a>.)</td></tr>
+<tr><td class="param">is-vert</td><td>true <i>or</i> false</td><td>Child</td><td>false</td><td class="misc">The splitter, if it appears, is vertical.</td></tr>
+<tr><td class="param">is-visible</td><td>true <i>or</i> false</td><td>All</td><td>true</td><td class="misc">The main window should usually be made visible.</td></tr>
+<tr><td class="param">keep-aspect</td><td>true <i>or</i> false</td><td>Main, Label</td><td>false</td><td class="misc">If stretching an image, preserve its aspect ratio.</td></tr>
+<tr><td class="param">left</td><td>"[pane name]" <i>or</i> none</td><td>Child</td><td>none</td><td class="misc">The name of the <a href="#panes">pane</a> that will appear on the left/top side of this Child. If none, the right/bottom side fills the whole space.</td></tr>
+<tr><td class="param">letterbox</td><td>true <i>or</i> false</td><td>Map</td><td>true</td><td class="misc">If map auto-scales its icons, make sure the entire map fits, and fill excess space with blackness. If letterbox is not enabled, zoom to fill the entire available space; any excess will be cut off.</td></tr>
+<tr><td class="param">line-color</td><td>#RRGGBB <i>or</i> #RGB</td><td>Grid</td><td>#c0c0c0</td><td class="misc">The color of grid lines.</td></tr>
+<tr><td class="param">link-color</td><td>#RRGGBB <i>or</i> #RGB</td><td>Output, Grid</td><td>#00f</td><td class="misc">Affects unvisited links.</td></tr>
+<tr><td class="param">lock</td><td>none <i>or</i> left <i>or</i> right</td><td>Child</td><td>none</td><td class="misc">Allows one pane to "lock" the splitter so if the Child control is resized, the splitter will stay put on that side.</td></tr>
+<tr><td class="param">macro</td><td>"[name]"</td><td>Main</td><td>""</td><td class="misc"><a href="#macros">Macro</a> set to use, if any. Use the name of a macro set defined in the skin file. Not valid for <a href="#panes">panes</a>.</td></tr>
+<tr><td class="param">map-to</td><td>"[name]"</td><td>Macro</td><td>""</td><td class="misc">The macro name of a key combo, Dpad, mouse button, etc. this macro maps to. See <a href="#macros">macros</a> for more details.</td></tr>
+<tr><td class="param">max-lines</td><td>[lines] <i>or</i> 0</td><td>Output</td><td>1000</td><td class="misc">Maximum number of lines before the control drops old text to make room for more. (Extra lines may be allowed to prevent flickering between trims.) 0 is no limit.</td></tr>
+<tr><td class="param">menu</td><td>"[name]"</td><td>Main</td><td>""</td><td class="misc"><a href="#menus">Menu</a> to use, if any. Use the name of a menu defined in the skin file. Not valid for <a href="#panes">panes</a>.</td></tr>
+<tr><td class="param">multi-line</td><td>true <i>or</i> false</td><td>Input, Info, Tab</td><td><i>varies</i></td><td class="misc">Info and Tab: Show tabs in multiple rows if there are too many to fit in a single row; true by default. Input: Create a multi-line input control; false by default. Changing this at runtime will not affect an input control.</td></tr>
+<tr><td class="param">name</td><td>"[label]" <i>or</i> "[key]" <i>or</i> ""</td><td>Menu, Macro</td><td><i>no&nbsp;default</td><td class="misc">For menus, this is the enu item label. A tab character can be used between the name and a keyboard shortcut, like "Help\tF1". (Keyboard shortcuts must be made as macros in order to work.) A blank name shows just a separator. For macros, the name is the key combination such as R+REP or CTRL+Northwest.</td></tr>
+<tr><td class="param">no-command</td><td>true <i>or</i> false</td><td>Input</td><td>false</td><td class="misc">If true, this input control is for typing only; hitting Enter will not run a command.</td></tr>
+<tr><td class="param">on-close</td><td>"[verb]"</td><td>Main</td><td>""</td><td class="misc"><a href="#commands">Command</a> executed when the window is closed. Not valid for <a href="#panes">panes</a>.</td></tr>
+<tr><td class="param">on-change</td><td>"[verb]"</td><td>Bar</td><td>""</td><td class="misc"><a href="#commands">Command</a> executed when the <tt>value</tt> of the bar/slider is changed. If you drag the slider around, the command will not run until you let go. In the command, [[*]] is replaced by the new value.</td></tr>
+<tr><td class="param">on-hide</td><td>"[verb]"</td><td>Map, Browser, Info</td><td>""</td><td class="misc"><a href="#commands">Command</a> executed when the default map, browser, or info control is hidden by the game. Usually a <tt>.winset</tt> command. (Not editable in Dream Maker.)</td></tr>
+<tr><td class="param">on-show</td><td>"[verb]"</td><td>Map, Browser, Info</td><td>""</td><td class="misc"><a href="#commands">Command</a> executed when the default map, browser, or info control is shown by the game. Usually a <tt>.winset</tt> command. (Not editable in Dream Maker.)</td></tr>
+<tr><td class="param">on-size</td><td>"[verb]"</td><td>All</td><td>""</td><td class="misc"><a href="#commands">Command</a> executed when the control is resized. If you are dragging a window edge or splitter, the command won't run until you finish. No command will be sent in response to size or splitter changes made by winset(). In the command, [[*]] is replaced by the new size.</td></tr>
+<tr><td class="param">on-tab</td><td>"[verb]"</td><td>Info, Tab</td><td>""</td><td class="misc"><a href="#commands">Command</a> executed when the current tab is changed. In the command, [[*]] is replaced by the new tab.</td></tr>
+<tr><td class="param">pos</td><td>[x],[y] <i>or</i> none</td><td>All</td><td>0,0</td><td class="misc">Position of upper left corner.</td></tr>
+<tr><td class="param">prefix-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>Info</td><td>none</td><td class="misc">The color used in the prefix/header column, to the left of atoms in the statpanel. If no color is specified, the normal text-color is used.</td></tr>
+<tr><td class="param">right</td><td>"[pane name]" <i>or</i> none</td><td>Child</td><td>none</td><td class="misc">The name of the <a href="#panes">pane</a> that will appear on the right/bottom side of this Child. If none, the left/top side fills the whole space.</td></tr>
+<tr><td class="param">right-click</td><td>true <i>or</i> false</td><td>All</td><td>false</td><td class="misc">True if this control should allow <a href="#mouse">right-clicks</a> to behave like any other click instead of opening up popup menus or similar special behavior.</td></tr>
+<tr><td class="param">saved-params</td><td><i><i>parameter names</i></i></td><td>All</td><td><i>varies</i></td><td class="misc">A semicolon-separated list of parameters that get saved with this control. This is often used for things a user might set, like zoom level for a map.</td></tr>
+<tr><td class="param">size</td><td>[width]x[height]</td><td>All</td><td>0x0</td><td class="misc">Setting 0 for width or height uses up any available space right/downward. If the control is a window, this refers to its <i>interior</i> size, not counting borders, titlebar, menu, or statusbar.</td></tr>
+<tr><td class="param">show-history</td><td>true <i>or</i> false</td><td>Browser</td><td>false</td><td class="misc">Show forward/back navigation buttons.</td></tr>
+<tr><td class="param">show-lines</td><td>none <i>or</i> horizontal <i>or</i> vertical <i>or</i> both</td><td>Grid</td><td>both</td><td class="misc">Which grid lines are shown.</td></tr>
+<tr><td class="param">show-names</td><td>true <i>or</i> false</td><td>Grid</td><td>true</td><td class="misc">If atoms are output to the grid, show the atom's name next to the icon. If the atom has no icon and <tt>show-names</tt> is false, the grid cell will be blank.</td></tr>
+<tr><td class="param">show-splitter</td><td>true <i>or</i> false</td><td>Child</td><td>true</td><td class="misc">Show a splitter if both the left and right <a href="#panes">panes</a> are in use. If shown the splitter allows the user to resize the two panes.</td></tr>
+<tr><td class="param">show-url</td><td>true <i>or</i> false</td><td>Browser</td><td>false</td><td class="misc">Show URL address bar.</td></tr>
+<tr><td class="param">small-icons</td><td>true <i>or</i> false</td><td>Grid</td><td>false</td><td class="misc">When output(object,grid) is sent, show smaller icons (16&times;16) in this control instead of larger ones (32&times;32).</td></tr>
+<tr><td class="param">splitter</td><td>0 <i>to</i> 100</td><td>Child</td><td>50</td><td class="misc">Percent distance of the splitter, if it appears, from the left/top of the Child control. 50% is an equal split.</td></tr>
+<tr><td class="param">suffix-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>Info</td><td>none</td><td class="misc">The color used in the suffix column, to the right of atoms in the statpanel that have a suffix. If no color is specified, the normal text-color is used.</td></tr>
+<tr><td class="param">statusbar</td><td>true <i>or</i> false</td><td>Main</td><td>false</td><td class="misc">Show a statusbar (unless this is a <a href="#panes">pane</a>).</td></tr>
+<tr><td class="param">stretch</td><td>true <i>or</i> false</td><td>Label</td><td>false</td><td class="misc">Stretch the image for this label. <i>(Deprecated. Use image-mode instead.)</i></td></tr>
+<tr><td class="param">style</td><td>"[css]"</td><td>Output, Map, Grid</td><td>""</td><td class="misc">Custom stylesheet used for the control. For maps, this affects any maptext drawn. In a <a href="#grids">grid</a>, changing this will not immediately affect the existing cells, which will need to be updated.</td></tr>
+<tr><td class="param">tab-background-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>Info</td><td>none</td><td class="misc">Affects background color for tabs.</td></tr>
+<tr><td class="param">tab-font-family</td><td>"[font name]"</td><td>Info</td><td>""</td><td class="misc">Same as <a href="#fonts"><tt>font-family</tt></a>, but for tabs.</td></tr>
+<tr><td class="param">tab-font-size</td><td>[point size]</td><td>Info</td><td>0</td><td class="misc">Same as <a href="#fonts"><tt>font-size</tt></a>, but for tabs.</td></tr>
+<tr><td class="param">tab-font-style</td><td>"bold" <i>or</i> "italic" <i>or</i> "underline" <i>or</i> "strike" <i>or</i> any combination</td><td>Tab</td><td>""</td><td class="misc">Same as <a href="#fonts"><tt>font-style</tt></a>, but for tabs.</td></tr>
+<tr><td class="param">tab-text-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>Info</td><td>none</td><td class="misc">Affects foreground text for tabs.</td></tr>
+<tr><td class="param">tabs</td><td>"[tab names, comma-separated]" <i>or</i> "+[new tab name]" <i>or</i> "-[tab to remove]"</td><td>Tab</td><td>""</td><td class="misc">The names of the <a href="#panes">panes</a> that will appear as tabs, in order, separated by commas. Precede with "+" to add tabs to the current list without removing any, or "-" to remove only the tabs you specify.</td></tr>
+<tr><td class="param">text</td><td>"[label]"</td><td>Label, Button, Input</td><td>""</td><td class="misc">Text shown in label/button/input. For input controls this setting is only available at runtime.</td></tr>
+<tr><td class="param">text-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>All</td><td>#000</td><td class="misc">Affects foreground text.</td></tr>
+<tr><td class="param">text-mode</td><td>true <i>or</i> false</td><td>Map</td><td>false</td><td class="misc">Show text mode even if icons are available. Text mode will be used if no icons are present, regardless of this setting.</td></tr>
+<tr><td class="param">text-wrap</td><td>true <i>or</i> false</td><td>Label</td><td>false</td><td class="misc">Wrap text within the label.</td></tr>
+<tr><td class="param">title</td><td>"[title]"</td><td>Main</td><td>""</td><td class="misc">The title that would be shown in a titlebar, or in a tab if this is a <a href="#panes">pane</a>.</td></tr>
+<tr><td class="param">titlebar</td><td>true <i>or</i> false</td><td>Main</td><td>true</td><td class="misc">Show a titlebar (unless this is a <a href="#panes">pane</a>).</td></tr>
+<tr><td class="param">transparent-color</td><td>#RRGGBB <i>or</i> #RGB <i>or</i> none</td><td>Main</td><td>none</td><td class="misc">Color in background image to make transparent; this will affect all controls.</td></tr>
+<tr><td class="param">type</td><td>[TYPE]</td><td>All</td><td><i>no&nbsp;default</i></td><td class="misc">The type of control. Read-only.</td></tr>
+<tr><td class="param">use-title</td><td>true <i>or</i> false</td><td>Browser</td><td>false</td><td class="misc">Use the browser's title to override the title of the window/pane holding it.</td></tr>
+<tr><td class="param">value</td><td>0 <i>to</i> 100</td><td>Bar</td><td>0</td><td class="misc">The "fullness" of the bar or slider, as a percentage.</td></tr>
+<tr><td class="param">view-size</td><td>[size]</td><td>Map</td><td>0</td><td class="misc">Size, in pixels, the area the map is using (or trying to use) for display, not including any of the "letterboxing". If <tt>icon-size</tt> is not 0, this value may be bigger than the control's actual size. Read-only.</td></tr>
+<tr><td class="param">visited-color</td><td>#RRGGBB <i>or</i> #RGB</td><td>Output, Grid</td><td>#f0f</td><td class="misc">Affects visited links.</td></tr>
+<tr><td class="param">width</td><td>[width]</td><td>Bar</td><td>10</td><td class="misc">Width, in pixels, of the bar or slider. 0 uses all available width.</td></tr>
+<tr><td class="param">zoom</td><td>0 <i>or</i> [size]</td><td>Map</td><td>0</td><td class="misc">Zoom factor for icons on map. 0 stretches to fit available space; 1 will show the icons at their normal size, 2 at double size, 0.5 at half size, and so on. This is a companion to icon-size, which does the same thing but uses an exact pixel size instead of a ratio.</td></tr>
+<tr><td class="param">zoom-mode</td><td>normal <i>or</i> distort <i>or</i> blur</td><td>Map</td><td>normal</td><td class="misc">Controls the way a map is scaled up. The normal setting tries to keep the look of individual pixels, but will adjust to non-integer zooms (like 1.1x) by blending neighboring pixels; this produces best results on most games. The distort option will add duplicate rows/columns of pixels, or drop them, as needed to fit the requested zoom size. (At integer zoom sizes, normal and distort are identical.) The blur option uses bilinear sampling. When the map is downscaled, bilinear sampling is always used.</td></tr>
+
+</tbody>
+</table></center>
+
+
+<h2>Further details</h2>
+
+<h3><a name="element_id"></a><tt>id</tt></h3>
+
+<p>Each window, pane, or control has an ID. This is used for <tt>winset()</tt>,
+<tt>winget()</tt>, <tt>winclone()</tt>, <tt>winshow()</tt>, <tt>winexists()</tt>,
+and <tt>output()</tt>.</p>
+
+<p>The ID needs to be unique for a window or pane, but other controls don't
+have this restriction. If a control ID is unique, you can interact with it by
+just using that ID; otherwise, you'll need to use
+<tt>"[window_id].[control_id]"</tt> to reference it.</p>
+
+
+<h3><a name="is_default"></a><tt>is-default</tt></h3>
+
+<p>For regular input/output, when a control isn't named specifically, BYOND
+will use whatever controls you specify as defaults.</p>
+
+<ul>
+  <li>Main: You need a default window.</li>
+  <li>Input: Any keyboard input that isn't a macro goes to the default
+    input.</li>
+  <li>Output: Standard BYOND text output goes to the default Output.</li>
+  <li>Browser: Regular <tt>browse()</tt> commands go to the default Browser.</li>
+  <li>Map: If used, it should be marked as a default.</li>
+  <li>Info: If used, it should be marked as a default.</li>
+</ul>
+
+<p>If two controls of the same type are marked as defaults, the first one in
+the skin is considered the true default.</p>
+
+<p>It is generally not a good idea to change is-default at runtime. Instead,
+default controls can be more easily placed in a pane that can be moved around.
+If you want swappable window layouts for the main window, the easiest way to
+handle that is to use panes as well, and just put a Child control in the main
+window.</p>
+
+
+<h3><a name="anchors"></a>Anchors</h3>
+
+<p>By using one anchor, you can hold your control in the same relative position
+in the window/pane as it resizes. Using two anchors, you can stretch it.</p>
+
+<dl>
+  <dt>anchor1=50,100</dt>
+  <dd>The control will stay positioned in the same place relative to the bottom
+    center of the window. This is a good place for an OK button.</dd> 
+  <dt>anchor1=0,0 and anchor2=100,0</dt>
+  <dd>0,0 is the top left and 100,0 is the top right. The control will stretch
+    left and right, but its height will not change.</dd> 
+  <dt>anchor1=0,0 and anchor2=100,100</dt>
+  <dd>0,0 is the top left and 100,100 is the bottom right. The control will
+    stretch with the window in any direction.</dd> 
+  <dt>anchor1=0,0 and anchor2=50,100</dt>
+  <dd>0,0 is the top left and 50,100 is the bottom center. The control will
+    stretch with the window height-wise, but width-wise it will stretch only
+    half as much.</dd> 
+</dl>
+
+<p><tt>anchor1</tt> is meant to be the top left anchor, and <tt>anchor2</tt> is
+the bottom right. If you set up anchors in the wrong order, weird things can
+happen.</p>
+
+
+<h3><a name="commands"></a>Client-side commands</h3>
+
+<p>Several commands can be executed at runtime that are not verbs, but raw
+instructions for Dream Seeker.</p>
+
+<ul>
+  <li><tt>.winset "[<i>control</i>.<i>param</i>=<i>value</i>;...]"</tt> - Sets
+    parameters in response to a menu or button command (or a manually typed
+    command). You can set more than one by separating them with
+    semicolons.</li>
+  <li><tt>.output <i>control</i> <i>text</i></tt> - Sends output to a control. The text does not need quotes, but backslashes, newlines, and tabs should be escaped with a backslash. The control name can be in <tt>browser:script</tt> form to send to JavaScript; see <tt>output()</tt> in the DM Reference for details.</li>
+  <li><tt>.options</tt> - Shows the Options and Messages box.</li>
+  <li><tt>.reboot</tt> - Reboots the world.</li>
+  <li><tt>.reconnect</tt> - Reconnects to the same world.</li>
+  <li><tt>.host</tt> - Opens hosting options box.</li>
+  <li><tt>.profile</tt> - Profiles the running time of procs.</li>
+  <li><tt>.screenshot</tt> - Saves a screenshot of the map.</li>
+  <li><tt>.screenshot auto</tt> - Saves a screenshot of the map, but does not prompt for a filename. The file will be saved in the client's user directory in BYOND/screenshots.</li>
+  <li><tt>.command</tt> - Prompts the user to enter a command, which can be one of these commands as well.</li>
+  <li><tt>.quit</tt> - Closes Dream Seeker.</li>
+</ul>
+
+
+<h3><a name="fonts"></a>Fonts</h3>
+
+<p>You can change the default font of almost any control by changing the
+following parameters:</p>
+
+<ul>
+<li><tt>font-family</tt></li>
+<li><tt>font-size</tt></li>
+<li><tt>font-style</tt></li>
+</ul>
+
+<p>The <tt>font-family</tt> paremeter can be a list of fonts separated by
+commas, like <tt>"Tahoma,Arial,sans-serif"</tt>, and you can put double or
+single quotes around a font name if it includes a space, such as:
+<tt>"\"Tempus Sans ITC\",\"Comic Sans MS\",sans-serif"</tt>.</p>
+
+<p>The list of fonts is done in "first-choice" order just like in CSS, so that
+if the user does not have the first font on the list installed, the next one
+will be tried, and then the next, and so on. There are some generic fonts that
+will always be accepted: sans-serif (a friendly, basic font), serif (like what
+you see in most books), and monospace (a fixed-width, typewriter-like font).</p>
+
+<p>If you include any .ttf font files in your resources by putting them in
+single quotes in your source code, they will be temporarily installed on the
+user's system so they are available to your interface. It is a good idea not to
+do this with common fonts that most people have, because font files can be
+large. Also you should be sure the font is OK to distribute. Many freeware
+fonts can be found online.</p>
+
+<pre>var/list/extra_resources = list(\
+    'myfont.ttf',
+    'myfont_bold.ttf')</pre>
+
+<p>Use <tt>font-size</tt> to specify a point size for the font. 0 is the
+default value, which will just use whatever size the control would normally
+use.</p>
+
+<p>The <tt>font-style</tt> parameter can change some of the font's attributes
+to alter the way it looks. You can choose from bold, italic, underline, and
+strike as styles. To use more than one, combine them with spaces or commas
+like <tt>"bold,italic"</tt>. This parameter isn't very picky, so it can accept
+things like <tt>"italics"</tt> and <tt>"strikeout"</tt> and still understand
+what you mean. It isn't case-sensitive either, so caps are OK.</p>
+
+<p>Some controls have special behavior regarding fonts:</p>
+
+<ul>
+  <li>The Main control does not use your font. The titlebar, statusbar, and
+    menu all use the system defaults.</li> 
+  <li>The font used by the Map control to show icons in <tt>text-mode</tt>
+    can't be changed.</li> 
+  <li>The Child control doesn't print any text.</li> 
+  <li>The Info control uses the <tt>font-</tt> parameters for its contents. For
+    the tabs, there are <tt>tab-font-</tt> parameters that work the same way.</li>
+  <li>Changes you make to the Grid or Output controls won't affect any output
+    that has already been written. The font will be used the next time you send
+    output to the control.</li>
+</ul>
+
+
+<h3>Using <tt>winset()</tt></h3>
+
+<p>Normally <tt>winset()</tt> is used to modify one control at a time. The list
+of parameters to change is in the same format used by <tt>list2params()</tt>:</p>
+
+<blockquote><tt>winset(usr, "tinypane.output", "text-color=#000000;background-color=#ffffff")</tt></blockquote>
+
+<p>Calling the <tt>winset()</tt> proc with a blank or null control ID lets you
+modify more than one control at once, just like the <tt>.winset</tt> command
+does. To use this feature, each parameter should be listed with its full
+<i>control_id.parameter</i> name.</p>
+
+<blockquote><tt>winset(usr, null, "tinypane.output.text-color=#000000;tinypane.input.text-color=#000000")</tt></blockquote>
+
+
+<h3>Special <tt>.winset</tt> commands</h3>
+
+<p>You can use the <tt>.winset</tt> command or the <tt>winset()</tt> proc to
+execute a verb, like so:</p>
+
+<blockquote><tt>.winset "command=\"jump\""</tt><br/>
+<tt>winset(usr, null, "command=\"jump\"")</tt></blockquote>
+
+<p>No window or control name is supplied, only the <tt>command</tt> parameter.
+Some commands cannot be executed this way, but can only be typed manually or
+run from Dream Seeker's Options &amp; Messages box.</p>
+
+<p>Another option you have is resetting the skin:</p>
+
+<blockquote><tt>.winset "reset=true"</tt><br/>
+<tt>winset(usr, null, "reset=true")</tt></blockquote>
+
+<p>When resetting the skin, any saved settings (like window position and
+size) are still kept, as determined by <tt>saved-params</tt> for each control.
+Controls created at runtime, including windows made via <tt>winclone()</tt>,
+are destroyed. The reset option is provided so that you can reset a user's
+skin when they reconnect or when they are brought in via <tt>link()</tt> from
+another server. Normally the skin will not reset.</p>
+
+<p>Conditonals are also supported, but only for the <tt>.winset</tt> command
+used in DS or in skins. The <tt>winset()</tt> proc in DM does not technically
+support them. The format is like so:</p>
+
+<p><i>condition</i><tt>?</tt><i>choice1</i><tt>:</tt><i>choice2</i></p>
+
+<p>The condition is the same as any other parameter you might use in
+<tt>.winset</tt>, but instead of setting the parameter, it checks to see if
+it's true. If so, then the parameters in <i>choice1</i> will be set. Otherwise,
+the parameters in <i>choice2</i> are set. This example makes the window
+background red if <tt>bigbutton</tt> is checked.</p>  
+
+<blockquote><tt>.winset "bigbutton.is-checked=true ? window.background-color=#ff0000 : window.background-color=none"</tt></blockquote>
+
+<p>If you want to look for values that don't match instead of values that do,
+use <tt>!=</tt> instead of <tt>=</tt> in the condition.</p>
+
+<blockquote><tt>.winset "bigbutton.is-checked!=false ? window.background-color=#ff0000 : window.background-color=none"</tt></blockquote>
+
+<p>The <i>choice2</i> item is optional.</p>
+
+<blockquote><tt>.winset "bigbutton.is-checked=true ? window.background-color=#ff0000"</tt></blockquote>
+
+<p>Because it's often useful to do more than one thing at a time, <i>choice1</i>
+and <i>choice2</i> don't have to be just one parameter. You can use multiple
+parameters, but separate them with a space instead of a semicolon.</p>
+
+<blockquote><tt>.winset "bigbutton.is-checked=true ? window.text-color=#ffffff window.background-color=#ff0000 : window.text-color=none window.background-color=none"</tt></blockquote>
+  
+
+<h3>Special <tt>winget()</tt> calls</h3>
+
+<p>Calling the <tt>winget()</tt> proc with a blank or null control ID can return some
+values that belong to the whole program.</p>
+
+<ul>
+<li><tt>winget(player, null, "focus")</tt> will return the ID of the control,
+if any, that currently has keyboard focus.</li>   
+
+<li><tt>winget(player, null, "windows")</tt> will return the IDs of the windows
+available in the program, separated by semicolons.</li>
+
+<li><tt>winget(player, null, "panes")</tt> will return the IDs of the panes
+available in the program, separated by semicolons.</li>
+
+<li><tt>winget(player, null, "menus")</tt> will return the IDs of the menus
+available in the program, separated by semicolons.</li>
+
+<li><tt>winget(player, null, "macros")</tt> will return the IDs of the macros
+available in the program, separated by semicolons.</li>
+
+<li><tt>winget(player, null, "sound")</tt> says whether sound is active.</li>
+
+<li><tt>winget(player, null, "hwmode")</tt> says whether the client is
+configured to display graphics using hardware rendering.</li>
+
+<li><tt>winget(player, null, "url")</tt> returns the URL the client is
+connected to in IP:port form. The port is 0 if connected to a local .dmb file,
+and either an empty string or null if not connected at all.</li>
+
+</ul>
+
+<p>To retrieve more than one parameter at a time, separate them with semicolons:</p>
+
+<blockquote><tt>var/buttons = winget(player, "mainwindow", "pos;size")</tt></blockquote>
+
+<p>The result looks like this:</p>
+
+<blockquote><tt>pos=0%2c0;size=500x500</tt></blockquote>
+
+<p>...and can be decoded using <tt>params2list()</tt>. That will give you an
+associative list where <tt>list["pos"]</tt> is <tt>"0,0"</tt> and
+<tt>list["size"]</tt> is <tt>"500x500"</tt>.</p>
+
+<p>To retrieve the parameters of more than one control at a time, separate the
+control IDs with semicolons:</p>
+
+<blockquote><tt>var/buttons = winget(player, "button1;button2", "is-checked")</tt></blockquote>
+
+<p>Again the result can be decoded using <tt>params2list()</tt>. The name of
+each parameter in the result would be <tt>button1.is-checked</tt> and
+<tt>button2.is-checked</tt>. If you mix two types of controls where one has a
+parameter that the other doesn't, only the parameters that are available are
+included in the result. For instance, if you have a window with an Input and
+two Buttons:</p>
+
+<blockquote><tt>var/form = winget(player, "age;male;female", "text;is-checked")</tt></blockquote>
+
+<p>Your result might look like so:</p>
+
+<blockquote><tt>age.text=21;male.is-checked=false;female.is-checked=true</tt></blockquote>
+
+<p>You can use a wildcard after a window name in <tt>winget()</tt> to retrieve
+info about all the controls in a window (including the window itself). 
+<tt>winget(player, "mainwindow.*", "image")</tt> will return the <tt>image</tt>
+parameter (where available) for mainwindow and any controls that are a part of
+mainwindow. The result would look something like this:</p>
+
+<blockquote><tt>mainwindow.image=background.png;mainwindow.button1.image=;mainwindow.button2.image=smiley.png</tt></blockquote>
+
+<p>More than one parameter can be used at a time, so if you use
+<tt>winget(player, "mainwindow.*", "size;image")</tt>, you will also receive
+size info about all the controls.</p>
+
+<p>This wildcard format also works with menus and macros. For a macro, it will
+retrieve info on every individual macro in the set that has an ID associated
+(so it can be disabled, changed at runtime, etc.). For a menu, it will retrieve
+info on any menu item with an ID, and also anything in sub-menus.</p>
+
+<p>(Note: The wildcard format is not recursive, except with menus. If you use
+<tt>winget()</tt> on all the controls in a window and that window includes a
+Child control, the Child's panes are not included in the result.)</p>
+
+<p>A wildcard is also allowed for the parameters. If used, it will retrieve
+all parameters belonging to a control. To conserve bandwidth, this should be
+avoided; it is mostly intended for special occasions or for working with
+JavaScript (below)</p>
+
+
+<h3>Winset and Winget via JavaScript</h3>
+
+<p>Some games use browser interfaces and want them to interact with the rest
+of the skin. In the past the only way to do this was by making the JavaScript
+call a byond: URL and interpreting it in <tt>client/Topic()</tt>, which made
+it work like a verb. To read any parameter values, the server had to call
+<tt>winget()</tt> which would then have to wait for a reply from the client,
+all to do things that JavaScript could have done locally if it had a way to
+communicate directly.</p>
+
+<p>To improve on this and allow better access to the skin via JavaScript, two
+new URL formats have been added. If window.location is set to these from
+JavaScript in a browser control, they can be used to interact directly.</p>
+
+<p><b>Winset URL:</b> <tt>byond://winset?id=[element ID]&[property]=[value]&...</tt></p>
+
+<p>This works like an ordinary <tt>winset()</tt> call from the server, where
+the <tt>id</tt> field is the ID of the element to change, and all of the
+other properties listed in the URL are items to change.</p>
+
+<p>Any text you use other than letters, numbers, hyphens, commas, and periods
+should be encoded via the <tt>encodeURIComponent()</tt> function in
+JavaScript.</p>
+
+<p>As with normal winset(), you can leave the ID blank and specify each
+property fully, such as <tt>mybutton.is-clicked</tt>.</p>
+
+<p><b>Winget URL:</b> <tt>byond://winget?callback=[callback function]&id=[element ID/list]&property=[property/list]</tt></p>
+
+<p>In this winget, the IDs and properties you want can be separated by commas
+if you want to retrieve more than one.</p>
+
+<p>The winget operation works via a callback function you must define in
+JavaScript. The callback is given just one argument, a JavaScript object with
+all of the properties you requested. For example, this URL:</p>
+
+<blockquote><tt>byond://winget?callback=wgcb&id=button1&property=is-checked,size,background-color</tt></blockquote>
+
+<p>...might send this to the callback function <tt>wgcb</tt>:</p>
+
+<blockquote><pre>{
+  'is-checked': true,
+  'size': {
+    x: 60,
+    y: 20
+  },
+  'background-color': {
+    value: 'none',
+    isDefault: true,
+    red: 236,
+    green: 233,
+    blue: 216,
+    alpha: 255,
+    css: '#ece9d8'
+  }
+}</pre></blockquote>
+
+<p>The property names will be in the same format you would expect from <tt>winget()</tt>, so when you're looking at multiple elements' properties, you'll get the full names in id.property format. The values are always sent back in a convenient form for JavaScript to work with; in the case of size, position, and color these will always be objects.</p>
+
+<p>An optional "control" parameter for the winget call can be used if you want to send data to a callback in a different browser control.</p>
+
+
+<h3><tt>winexists()</tt> results</h3>
+
+<p>When you use <tt>winexists()</tt> to check on whether a control exists, it
+will return one of the following values as text:</p>
+
+<ul>
+  <li><i>blank</i> - Control does not exist</li>
+  <li><b>MAIN</b> - A window or a pane</li>
+  <li><b>MENU</b> - A menu or menu item</li>
+  <li><b>MACRO</b> - A macro or macro set</li>
+  <li><b>BAR</b> - A bar control</li>
+  <li><b>BROWSER</b> - A browser control</li>
+  <li><b>BUTTON</b> - A button</li>
+  <li><b>CHILD</b> - A child control</li>
+  <li><b>GRID</b> - A grid</li>
+  <li><b>INFO</b> - An info control (statpanel)</li>
+  <li><b>INPUT</b> - An input box</li>
+  <li><b>LABEL</b> - A label</li>
+  <li><b>MAP</b> - A map control</li>
+  <li><b>OUTPUT</b> - An output control</li>
+  <li><b>TAB</b> - A tab control</li>
+</ul>
+
+
+<h3><a name="panes"></a>Windows and panes</h3>
+
+<p>At this time, a Main control is either a window or a pane, and stays that
+way for life. Panes do not have most of the options a window does; those
+settings, such as <tt>statusbar</tt>, are irrelevant for the pane. Only panes
+can be selected into Child or Tab controls.</p>
+
+<p>Windows or panes may be copied via the <tt>winclone()</tt> proc, and
+windows can be shown or hidden via <tt>winshow()</tt>.</p>
+
+<p>Any window or pane in your skin file is loaded immediately, even if it is
+invisible and not used yet.</p>
+
+
+<h3><a name="menus"></a>Menus</h3>
+
+<p>Menus can be changed at runtime just like controls. They support a more
+limited set of parameters. To alter a menu item or add items under it, it needs
+to have an ID. These are the parameters that can be changed using winset():</p>
+
+<ul>
+  <li><tt>name</tt></li>
+  <li><tt>command</tt></li>
+  <li><tt>index</tt></li>
+  <li><tt>is-disabled</tt></li>
+  <li><tt>is-checked</tt></li>
+  <li><tt>can-check</tt></li>
+  <li><tt>group</tt></li>
+</ul>
+
+<p>A new item can be added to a menu at runtime by including a <tt>parent</tt>
+parameter, which points to the ID of a menu or one of the items in it. If you
+have a menu with an ID of "mainmenu", for instance, this will add a Players
+menu beneath it:</p>
+
+<pre>winset(usr, "playersmenu", "parent=mainmenu;name=Players")
+for(var/client/C)
+  var/itemname = "playermenu_[C.ckey]"
+  var/command = "view [C.ckey]"
+  winset(usr, itemname,\
+    "parent=playersmenu;name=[url_encode(C.key)];command=[url_encode(command)]")</pre>
+
+<p>Menu items that were added this way can also be deleted again by setting their
+parent to a blank value.</p>
+
+<p>A menu can also be cloned with <tt>winclone</tt>. To use the menu, use
+<tt>winset()</tt> to assign it to a window.</p>
+
+
+<h3><a name="macros"></a>Macros</h3>
+
+<p>Macros are used to convert keyboard and gamepad events into actions. There
+are two ways this works: A macro can run a command, or in some cases (such as
+gamepad controls) it can be used to remap one control to another.
+
+<p>Macros can be changed at runtime. If a macro does not have an ID, you
+can refer to it by its key combination. If you have a macro set named <tt>macro1</tt>
+and have a Ctrl+E macro for instance, you could use winset() with
+<tt>"macro1.Ctrl+E"</tt>. These are the parameters that can be changed using
+winset():</p>
+
+<ul>
+  <li><tt>name</tt></li>
+  <li><tt>command</tt></li>
+  <li><tt>is-disabled</tt></li>
+  <li><tt>map-to</tt></li>
+</ul>
+
+<p>The name is actually the full key combination as it would appear in the macro
+editor, like CTRL+E, Space+REP, or Alt+Shift+F1. This is not case-specific and
+it doesn't matter where you put modifiers like CTRL+, SHIFT+, etc.</p>
+
+<p>A new macro can be added to a macro set at runtime by including a
+<tt>parent</tt> parameter, which points to the ID of an existing macro set.
+Using the example above, Ctrl+E could be added as a macro at runtime like so:</p>
+
+<pre>winset(usr, "myCtrlEmacro", "parent=macro1;name=Ctrl+E;command=exit")</pre>
+
+<p>Macros that were added this way can also be deleted again by setting their
+parent to a blank value.</p>
+
+<pre>winset(usr, "macro1.myCtrlEmacro", "parent=")</pre>
+
+<p>A macro set can also be cloned with <tt>winclone</tt>. To use the macros, use
+<tt>winset()</tt> to assign the macro set to a window.</p>
+
+<h4>Available macros</h4>
+
+<table class="macro_info" cellspacing=0 cellpadding=3>
+  <thead>
+    <tr><td class="macro_head" colspan=2><b>Macro modifiers</b> are part of the macro name, and control the conditions in which the macro will fire.</td></tr>
+    <tr><th>Modifier</th><th>Meaning</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>SHIFT+</td><td>This macro only counts if either Shift key is pressed.</td></tr>
+  <tr><td>CTRL+</td><td>This macro only counts if either Ctrl key is pressed.</td></tr>
+  <tr><td>ALT+</td><td>This macro only counts if either Alt key is pressed.</td></tr>
+  <tr><td>+REP</td><td>If a key/button is held down, this macro repeats.</td></tr>
+  <tr><td>+UP</td><td>This macro fires when the key/button is released.</td></tr>
+  </tbody>
+
+  <thead>
+    <tr><td class="macro_head" colspan=2><b>Keyboard keys</b> are the garden-variety macros. (This list is abridged to exclude keys probably no one has.)</td></tr>
+    <tr><th>Key</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><tt>A</tt> - <tt>Z</tt></td><td>Letter key</td></tr>
+    <tr><td><tt>0</tt> - <tt>9</tt></td><td>Number key</td></tr>
+    <tr><td><tt>Numpad0</tt> - <tt>Numpad9</tt></td><td>Numpad numbers</td></tr>
+    <tr><td><tt>North</tt></td><td>Up arrow</td></tr>
+    <tr><td><tt>South</tt></td><td>Down arrow</td></tr>
+    <tr><td><tt>East</tt></td><td>Right arrow</td></tr>
+    <tr><td><tt>West</tt></td><td>Left arrow</td></tr>
+    <tr><td><tt>Northwest</tt></td><td>Home key</td></tr>
+    <tr><td><tt>Southwest</tt></td><td>End key</td></tr>
+    <tr><td><tt>Northeast</tt></td><td>Page Up key</td></tr>
+    <tr><td><tt>Southeast</tt></td><td>Page Down key</td></tr>
+    <tr><td><tt>Center</tt></td><td>Center key (numpad)</td></tr>
+    <tr><td><tt>Return</tt></td><td>Enter / Return key</td></tr>
+    <tr><td><tt>Escape</tt></td><td>Esc key</td></tr>
+    <tr><td><tt>Tab</tt></td><td>Tab key</td></tr>
+    <tr><td><tt>Space</tt></td><td>Space bar</td></tr>
+    <tr><td><tt>Back</tt></td><td>Backspace key</td></tr>
+    <tr><td><tt>Insert</tt></td><td>Ins key</td></tr>
+    <tr><td><tt>Delete</tt></td><td>Del key</td></tr>
+    <tr><td><tt>Pause</tt></td><td>Pause key</td></tr>
+    <tr><td><tt>Snapshot</tt></td><td>Snapshot / Print Screen key</td></tr>
+    <tr><td><tt>LWin</tt></td><td>Left Windows key</td></tr>
+    <tr><td><tt>RWin</tt></td><td>Right Windows key</td></tr>
+    <tr><td><tt>Apps</tt></td><td>Apps key</td></tr>
+    <tr><td><tt>Multiply</tt></td><td>Multiply key</td></tr>
+    <tr><td><tt>Add</tt></td><td>Add key</td></tr>
+    <tr><td><tt>Subtract</tt></td><td>Subtract key</td></tr>
+    <tr><td><tt>Divide</tt></td><td>Divide / Slash key</td></tr>
+    <tr><td><tt>Separator</tt></td><td>Separator / Backslash key</td></tr>
+    <tr><td><tt>Shift</tt></td><td>Shift key (when not used as a modifier)</td></tr>
+    <tr><td><tt>Ctrl</tt></td><td>Ctrl key (when not used as a modifier)</td></tr>
+    <tr><td><tt>Alt</tt></td><td>Alt key (when not used as a modifier)</td></tr>
+  </tbody>
+
+  <thead>
+    <tr><td class="macro_head" colspan=2><b>Special macros</b></td></tr>
+  </thead>
+  <tbody>
+    <tr><td><tt><b>Any</b></tt></td><td>A special macro that can run a command on press/release of any key or gamepad button. <tt>UP</tt> is the only modifier allowed. In the command, [[*]] is replaced with the key/button name.</td></tr>
+    <tr><td><tt><b>GamepadRaw</b></tt><sup>&dagger;</sup></td><td>Captures raw input from a gamepad, without regard to the adjustments done by the Gamepad Setup dialog. In the command, [[id]] is replaced by the name of the button or axis changed ("Button0" through "Button15" and "Axis0" through "Axis11"), [[value]] is replaced with the value of the button or axis, and [[*]] is equivalent to "[[id]] [[value]]" without quotes.</td></tr>
+  </tbody>
+
+  <thead>
+    <tr><td class="macro_head" colspan=2><b>Gamepad buttons</b><sup>&dagger;</sup> can use another gamepad button as a modifier (but not CTRL, SHIFT, ALT), and can be mapped to one or two keyboard keys or mouse buttons.</td></tr>
+    <tr><th>Button</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><tt>GamepadFace1</tt></td><td>A (Xbox), X (PS), bottom of diamond</td></tr>
+    <tr><td><tt>GamepadFace2</tt></td><td>B (Xbox), Circle (PS), right of diamond</td></tr>
+    <tr><td><tt>GamepadFace3</tt></td><td>X (Xbox), Square (PS), left of diamond</td></tr>
+    <tr><td><tt>GamepadFace4</tt></td><td>Y (Xbox), Triangle (PS), top of diamond</td></tr>
+    <tr><td><tt>GamepadL1</tt></td><td>Left top shoulder</td></tr>
+    <tr><td><tt>GamepadR1</tt></td><td>Right top shoulder</td></tr>
+    <tr><td><tt>GamepadL2</tt></td><td>Left bottom shoulder</td></tr>
+    <tr><td><tt>GamepadR2</tt></td><td>Right bottom shoulder</td></tr>
+    <tr><td><tt>GamepadSelect</tt></td><td>Select / Back</td></tr>
+    <tr><td><tt>GamepadStart</tt></td><td>Start / Forward</td></tr>
+    <tr><td><tt>GamepadL3</tt></td><td>Left analog click</td></tr>
+    <tr><td><tt>GamepadR3</tt></td><td>Right analog click</td></tr>
+    <tr><td class="macro_subhead" colspan=2>Directional buttons: only one can pressed at a time, and the diagonal buttons are virtual.</tr>
+    <tr><td><tt>GamepadUp</tt></td><td>Up button</td></tr>
+    <tr><td><tt>GamepadDown</tt></td><td>Down button</td></tr>
+    <tr><td><tt>GamepadLeft</tt></td><td>Left button</td></tr>
+    <tr><td><tt>GamepadRight</tt></td><td>Right button</td></tr>
+    <tr><td><tt>GamepadUpLeft</tt></td><td>Up+left virtual button</td></tr>
+    <tr><td><tt>GamepadUpRight</tt></td><td>Up+right virtual button</td></tr>
+    <tr><td><tt>GamepadDownLeft</tt></td><td>Down+left virtual button</td></tr>
+    <tr><td><tt>GamepadDownRight</tt></td><td>Down+right virtual button</td></tr>
+  </tbody>
+
+  <thead>
+    <tr><td class="macro_head" colspan=2><b>Gamepad analog sticks</b><sup>&dagger;</sup> can have commands and/or map to <tt>GamepadDir</tt>, <tt>GamepadDir4</tt>, or <tt>Mouse</tt>. They can use a gamepad button as a modifier. In a command, <tt>[[x]]</tt> and <tt>[[y]]</tt> are replaced by coordinates, and [[*]] is replaced by both with a comma for separation.</td></tr>
+  </thead>
+  <tbody>
+    <tr><td><tt>GamepadLeftAnalog</tt></td><td>Left analog stick</td></tr>
+    <tr><td><tt>GamepadRightAnalog</tt></td><td>Left analog stick</td></tr>
+  </tbody>
+
+  <thead>
+    <tr><td class="macro_head" colspan=2><b>Gamepad Dpads</b><sup>&dagger;&Dagger;</sup> can have commands or are used as mapping targets for analog sticks. A gamepad button can be used as a modifier. In a command, <tt>[[*]]</tt> is replaced by a direction number, which can be 0.</td></tr>
+  </thead>
+  <tbody>
+    <tr><td><tt>GamepadDir</tt></td><td>Dpad, converted to one of the eight standard directions.</td></tr>
+    <tr><td><tt>GamepadDir4</tt></td><td>Dpad, converted to a cardinal direction.</td></tr>
+  </tbody>
+
+  <thead>
+    <tr><td class="macro_head" colspan=2><b>Mouse</b> "macros" can only be used as mapping targets for another macro.</td></tr>
+  </thead>
+  <tbody>
+    <tr><td><tt>Mouse</tt></td><td>The mouse cursor, mappable by a gamepad analog stick.</td></tr>
+    <tr><td><tt>MouseLeftButton</tt></td><td>Left button, mappable by a gamepad button.</td></tr>
+    <tr><td><tt>MouseRightButton</tt></td><td>Right button, mappable by a gamepad button.</td></tr>
+    <tr><td><tt>MouseMiddleButton</tt></td><td>Middle button, mappable by a gamepad button.</td></tr>
+  </tbody>
+
+  <tfoot>
+    <tr><td colspan=2 class="macro_foot">
+      <h4>Special notes:</h4>
+      <p><sup>&dagger;</sup> All of the gamepad macros defined above apply to the first gamepad. BYOND can now support up to four gamepads, and you can replace Gamepad in the names above with Gamepad2, Gamepad3, or Gamepad4 to access them. Each gamepad also has its own raw macro (i.e., Gamepad2Raw).</p>
+      <p><sup>&Dagger;</sup> If you use a Dpad macro like GamepadDir as a map-to target, you don't have to specify gamepad 2-4 in map-to; the mapping will automatically know that when Gamepad2LeftAnalog is mapped to GamepadDir, it means Gamepad2Dir.</p>
+    </td></tr>
+  </tfoot>
+
+</table>
+
+
+<h3>Using <tt>winclone()</tt></h3>
+
+<p>The <tt>winclone()</tt> proc can copy a window, pane, menu, or macro set from
+the skin file. It takes three arguments: The user, the name of the skin element
+to copy, and the name of the new clone.</p>
+
+<blockquote><tt>winclone(player, "helpwindow", "helpwindow_howtoplay")</tt></blockquote>
+
+<p>When you copy an item that exists in the skin file, any items that belong to it
+are also copied. If the helpwindow element in this example had a browser control
+called helpwindow.browser, then the new window would have a control called
+helpwindow_howtoplay.browser just like it. This would be useful if you had several
+different kinds of help topics the user might want to look at at the same time.</p>
+
+<p>You can also use <tt>winclone()</tt> to create a brand new element. If the name
+of the original is "window", "pane", "menu", or "macro" and an element by that name
+does not already exist in the skin file, an element of that type is created. So for
+instance, you can create a brand new menu:</p>
+
+<pre>winclone(usr, "menu", "newmenu")
+winset(usr, "newmenu_file", "parent=newmenu;name=File")
+winset(usr, "newmenu_quit", "parent=newmenu_file;name=Quit;command=.quit")</pre>
+
+<p>You can also create a new window or pane this way.</p>
+
+<pre>// Create the pane
+winclone(usr, "pane", "newpane")
+// Give it a size so we can figure out where to put controls
+winset(usr, "newpane", "size=100x100")
+// Add controls
+winset(usr, "newpane_label", \
+       "parent=newpane;pos=0,0;size=100x100;anchor1=0,0;anchor2=100,100")
+// Put the pane in a child control where it can be seen
+winset(usr, "a_child", "left=newpane")
+usr << output("newpane_label", "New label")</pre>
+
+<p>After you have cloned something or created a control at runtime, you can
+delete it like so:</p>
+
+<pre>
+winset(usr, "clonedwindow1", "parent=none")
+</pre>
+
+
+<h3><a name="grids"></a>Grids and Info</h3>
+
+<p>The grid and info controls support limited formatting using HTML and CSS.
+Specifically, those limits are:</p>
+
+<ul>
+  <li>Only one character style (font, color, bold, etc.) may appear in a cell
+    at any given time. E.g., you can't mix green and red text in the same
+    cell.</li>
+  <li>A cell is either a link, or not.</li>
+  <li>One image is allowed per cell.</li>
+  <li>A cell may hold an object, via the <tt>output()</tt> proc, which can be
+    clicked, dragged, etc. This cell will not function as a regular link.</li>
+  <li>The same margin is used all around the cell, not different margins for
+    left, right, etc. To control cell margins, use both the <tt>margin-left</tt>
+    and <tt>margin-right</tt> properties in CSS.
+  <li>There will always be a 1-pixel space for grid lines, whether they're used
+    or not.</li>
+</ul>
+
+<p>You can send output to a particular grid cell without having to use
+<tt>winset()</tt> first to change the <tt>current-cell</tt>. Instead of just
+using the grid's ID in <tt>output()</tt>, use <tt>"[id]:[column],[row]"</tt>
+instead. Or if the grid is using <tt>is-list</tt>, <tt>"[id]:[item]"</tt> will
+do.</p>
+
+<pre>usr &lt;&lt; output("This is cell 3,2", "mygrid:3,2")</pre>
+
+<p><b>Very important:</b> If you send an atom to a grid like you would with a
+statpanel, keep that object in a list or make sure it actually exists somewhere
+in the world. Do not use a temporary object that will be deleted when the proc
+ends, or it can disappear/change in the grid when a new object is created.
+Statpanels don't have this problem because of the way they update, but it's a
+good idea even there not to use temporary atoms.</p>
+
+
+<h3><a name="mouse"></a>Mouse actions and <tt>drop-zone</tt></h3>
+
+<p>Any atom that you have made draggable can be dragged from wherever it
+appears: the map, the info control, or a grid. Those same controls are set up
+as drop zones by default, meaning you can drop the atom there and get
+MouseDrag() and MouseDrop() messages.</p>
+
+<p>When drag or drop involves the map, <tt>src_location</tt> or
+<tt>over_location</tt> will be a turf, or null.</p>
+
+<p>When drag or drop involves the info control, <tt>src_location</tt> or
+<tt>over_location</tt> will be the name of that statpanel.</p>
+
+<p>When drag or drop involves the grid, <tt>src_location</tt> or
+<tt>over_location</tt> will be <tt>"[column],[row]"</tt>, or just a blank
+<tt>""</tt> string if no cell is involved. If the grid has <tt>is-list</tt>
+turned on, then <tt>"[item]"</tt> is the location instead.</p>
+
+<p>Clicking or double-clicking an object will also send the same kind of
+information.</p>
+
+<p>The new mouse commands are formatted like so:</p>
+
+<ul>
+  <li><tt>client/Click(object, location, control, params)</tt></li>
+  <li><tt>client/DblClick(object, location, control, params)</tt></li>
+  <li><tt>client/MouseDown(object, location, control, params)</tt></li>
+  <li><tt>client/MouseUp(object, location, control, params)</tt></li>
+  <li><tt>client/MouseEntered(object, location, control, params)</tt></li>
+  <li><tt>client/MouseExited(object, location, control, params)</tt></li>
+  <li><tt>client/MouseDrag(src_object, over_object, src_location, over_location, src_control, over_control, params)</tt></li>
+  <li><tt>client/MouseDrop(src_object, over_object, src_location, over_location, src_control, over_control, params)</tt></li>
+</ul>
+
+<p>(Note: In BYOND 3.5, <tt>MouseDown()</tt> and <tt>MouseUp()</tt> included
+<tt>icon_x</tt> and <tt>icon_y</tt> arguments. These now belong to
+<tt>params</tt>. Old game files will still run as expected, but if you
+recompile an old project that uses these, you will need to make changes.)</p>
+
+<p>The <tt>params</tt> argument is a text string which can be decoded using
+<tt>params2list()</tt>. Mouse parameters may include:</p>
+
+<ul>
+  <li><tt>icon-x</tt>: 1-32 when over an actual object</li>
+  <li><tt>icon-y</tt>: 1-32 when over an actual object</li>
+  <li><tt>screen-loc</tt>: The tile and pixel offset involved (if available), in an <tt>atom.screen_loc</tt>-like format of "[tile_x]:[pixel_x],[tile_y]:[pixel_y]"</li>
+  <li><tt>left</tt>: 1 if the left mouse button was used; does not appear otherwise</li>
+  <li><tt>right</tt>: 1 if the right mouse button was used; does not appear otherwise</li>
+  <li><tt>middle</tt>: 1 if the middle mouse button was used; does not appear otherwise</li>
+  <li><tt>ctrl</tt>: 1 if the Ctrl key was used; does not appear otherwise</li>
+  <li><tt>shift</tt>: 1 if the Shift key was used; does not appear otherwise</li>
+  <li><tt>alt</tt>: 1 if the Alt key was used; does not appear otherwise</li>
+  <li><tt>drag-cell</tt>: If dragging from, clicking, or hovering over a grid, this is the source cell</li>
+  <li><tt>drop-cell</tt>: If dragging to or dropping onto a grid, this is the destination cell</li>
+</ul>
+
+
+<h3>Creating or deleting controls at runtime</h3>
+
+<p>Controls in a window or pane can be added or deleted at runtime. (Only
+controls you add at runtime can be deleted.) To create a control, you need to
+supply a <tt>parent</tt> parameter with the ID of the window or pane that will
+hold the control, and <tt>type</tt> which is one of the available control
+types.</p>
+
+<pre>var/list/params = new
+params["parent"] = "mywindow"
+params["type"] = "button"
+params["text"] = "New button"
+params["command"] = "say \"This is a new button.\""
+params["pos"] = "10,10"
+params["size"] = "80x20"
+params["anchor1"] = "0,0"
+
+winset(usr, "newbutton", list2params(params))</pre>
+
+<p>The ID of this button will be <tt>newbutton</tt>, which in full form is
+<tt>mywindow.newbutton</tt>.</p>
+
+<p><b>Note:</b> At the present time, adding a control will not work through
+the <tt>.winset</tt> command that can be used in macros or menus, or typed in
+an input box. Only using the <tt>winset()</tt> proc inside the program's code
+will work.</p>
+
+<p>Controls that were added this way can also be deleted again by setting their
+parent to a blank value.</p>
+
+
+<h3><a name="notes"></a>Special control/parameter notes</h3>
+
+<table class="overview notes" cellspacing=0 cellpadding=3>
+  <tr><th class="general">All</th><td class="general">
+    <p>Anchors currently can't be changed at runtime.</p>
+    <p>Changing <tt>is-default</tt> at runtime may cause unpredictable results.</p>
+    <p>The <tt>is-transparent</tt> setting has very limited support. At present, only the label control supports this, and it will not repaint properly if placed on top of another control except for bar controls or another transparent label.</p>
+    <p>If <tt>transparent-color</tt> is in use for the window housing this label and that color is the label's background (or foreground), ClearType font rendering in Windows will cause drawing artifacts.</p>
+  </td></tr>
+  <tr><th class="main">Main</th><td class="main">
+    <p>The default window's <tt>title</tt> is not used; the current world.name value is used instead.</p>
+    <p><tt>can-close</tt> should be left on for the default window, even if you don't use a titlebar, to allow easy access to Options &amp; Messages from the taskbar and allow the window to close. It will not make a close box appear if <tt>titlebar</tt> is false.</p>
+    <p>Non-default values for <tt>transparent-color</tt> or <tt>alpha</tt> trigger drawing bugs when the map is drawn with hardware rendering turned on. Because this setting only works on one color and affects all controls, it may cause other unexpected display issues.</p>
+    <p>Transparent or translucent windows over a map may cause flickering with hardware rendering on.</p>    
+    <p>If <tt>can-scroll</tt> is used in a pane, the <tt>size</tt> parameter refers to the full scrollable area, not the size seen on the screen. If a 2000x2000 pane is scrunched into a 400x400 space and <tt>can-scroll</tt> is set to <tt>both</tt> so vertical and horizontal scrollbars appear, <tt>size</tt> still reports <tt>2000x2000</tt>.</p>
+    <p>If a window does not set <tt>icon</tt>, the Dream Seeker icon is used by default. However if the default window has an icon set, that will be used as the default icon for all windows.</p>
+  </td></tr>
+  <tr><th class="input">Input</th><td class="input">
+    <p>Built-in verbs like <tt>.click</tt>, and local commands like <tt>.winset</tt>, are not accepted when typed in by the user. This kind of command can still be entered through the Client menu in the Options &amp; Messages window.</p>
+  </td></tr>
+  <tr><th class="output">Output</th><td class="output">
+    <p>An overflow of 5% of <tt>max-lines</tt> is allowed, to reduce flicker.</p>
+    <p>If a background image is used, it will not show up beneath any images that appear in your text output; instead, the background color will be shown there.</p>
+  </td></tr>
+  <tr><th class="child">Child</th><td class="child">
+    <p><tt>background-color</tt> affects the splitter color only.</p>
+    <p><tt>top</tt> and <tt>bottom</tt> can substitute for <tt>left</tt> and <tt>right</tt>.</p>    
+  </td></tr>
+</table>
+
+<script type="text/javascript"><!--
+  function falsefunc() {return false;}
+
+  function param_info(param) {
+    var info = new Array;
+    var table = document.getElementById('allparamstable');
+    for(var i=1; i<table.rows.length; ++i) {
+      if(table.rows[i].cells[0].innerHTML != param) continue;
+      for(var j=0; j<table.rows[i].cells.length; ++j) {
+        info[j] = table.rows[i].cells[j].innerHTML;
+      }
+      if(i > 0 && !info[4]) {
+        info[4] = table.rows[i-1].cells[4].innerHTML;
+      }
+      break;
+    }
+    return info;
+  }
+  
+  function fill_overview() {
+    var table = document.getElementById('overviewtable');
+    for(var i=1; i<table.rows.length; ++i) {
+      for(var j=1; j<table.rows[i].cells.length; ++j) {
+        var cell = table.rows[i].cells[j];
+        if(!cell.innerHTML || cell.innerHTML == '&nbsp;') continue;
+        for(node=cell.firstChild; node; node=node.nextSibling) {
+          if(node.tagName) continue;
+          var link = document.createElement('a');
+          var text = node.nodeValue;
+          cell.insertBefore(link, node);
+          link.appendChild(document.createTextNode(text));
+          link.href = '#';
+          if(/msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent)) {
+            link.onmouseover = new Function("show_param_info('" + cell.getAttribute('class') + "','" + text + "', event)");
+            link.onmouseout = hide_param_info;
+            link.onclick = falsefunc;
+          }
+          else {
+            link.setAttribute('onMouseOver' ,"show_param_info('" + cell.getAttribute('class') + "','" + text + "', event)");
+            link.setAttribute('onMouseOut' , "hide_param_info()");
+            link.setAttribute('onClick' , "return false");
+          }
+          cell.removeChild(node);
+          node = link;
+        }
+      }
+    }
+  }
+
+  function show_param_info(control, param, event) {
+    var div = document.getElementById('hoverdiv');
+
+    var info = param_info(param);
+    var node, table;
+    div.innerHTML = "";
+    table = document.createElement('table');
+    div.appendChild(table);
+
+    node = table.insertRow(0);
+    node = node.insertCell(0);
+    node.innerHTML = "<b>Parameter:</b> " + param;
+
+    node = table.insertRow(1);
+    node = node.insertCell(0);
+    node.innerHTML = "<b>Supported by:</b> " + info[2];
+
+    node = table.insertRow(2);
+    node = node.insertCell(0);
+    node.innerHTML = "<b>Format:</b> " + info[1];
+
+    node = table.insertRow(3);
+    node = node.insertCell(0);
+    node.innerHTML = "<b>Default:</b> " + info[3];
+
+    node = table.insertRow(4);
+    node = node.insertCell(0);
+    node.innerHTML = info[4];
+
+    div.style.visibility = "hidden";
+    div.style.display = "block";
+
+    var width = div.offsetWidth || div.width || 100;
+    var height = div.offsetHeight || div.height || 100;
+
+    var posX,posY;
+    if (event.pageX) { // NS 4, Mozilla
+      posX = event.pageX;
+      posY = event.pageY;
+    } else { // IE, Opera
+      posX = event.clientX;
+      posY = event.clientY;
+      if(document.body && (document.body.scrollLeft || document.body.scrollTop)) {
+        posX += document.body.scrollLeft;
+        posY += document.body.scrollTop;
+      }
+      else if(document.documentElement && (document.documentElement.scrollLeft || document.documentElement.scrollTop)) {
+        posX += document.documentElement.scrollLeft;
+        posY += document.documentElement.scrollTop;
+      }
+    }
+
+    var fullWidth = 0;
+    var fullHeight = 0;
+    if(document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+      fullWidth = document.documentElement.clientWidth;
+      fullHeight = document.documentElement.clientHeight;
+    }
+    else if(document.body && (document.body.clientWidth || document.body.clientHeight)) {
+      fullWidth = document.body.clientWidth;
+      fullHeight = document.body.clientHeight;
+    }
+    else if(typeof(window.innerWidth) == 'number') {
+      fullWidth = window.innerWidth;
+      fullHeight = window.innerHeight;
+    }
+
+    posX += 10;
+    posY += 10;
+    if(posX + width + 10 > fullWidth) posX = fullWidth - width - 20;
+    if(posX < 0) posX = 0;    
+    if(posY + height + 10 > fullHeight) posY = posY - height - 20;
+    if(posY < 0) posY = 0;    
+    div.style.left = posX + "px";
+    div.style.top = posY + "px";
+
+    div.style.visibility = "visible";
+    show_shadow(div.id, posX, posY, width, height);
+  }
+
+  function hide_param_info() {
+    var div = document.getElementById('hoverdiv');
+    var shadow = document.getElementById('hoverdiv_shadow');
+    shadow.style.display = "none";
+    div.style.display = "none";
+    hide_shadow(div.id);
+  }
+  
+  function show_shadow(id, x, y, w, h) {
+    var div = document.getElementById(id);
+    var z = div.style.zIndex;
+    x += 3;
+    y += 3;
+    var shadow = document.getElementById(id + "_shadow");
+    if(!shadow) {
+      shadow = document.createElement('div');
+      shadow.id = id + "_shadow";
+      shadow.style.display = "none";
+      shadow.style.zIndex = z - 1;
+      shadow.style.background = "black";
+      shadow.style.position = "absolute";
+      div.parentNode.appendChild(shadow);
+    }
+    shadow.style.visibility = "hidden";
+    shadow.style.display = "block";
+    shadow.style.left = x + "px";
+    shadow.style.top = y + "px";
+    shadow.style.width = w + "px";
+    shadow.style.height = h + "px";
+    shadow.style.filter="alpha(opacity:25)";
+    shadow.style.KHTMLOpacity=0.25;
+    shadow.style.MozOpacity=0.25;
+    shadow.style.opacity=0.25;
+    shadow.style.visibility = "visible";
+  }
+
+  function hide_shadow(id) {
+    var shadow = document.getElementById(id + "_shadow");
+    if(shadow) shadow.style.display = "none";
+  }
+  
+  fill_overview();
+--></script>
+<div id="hoverdiv" style="display:none; z-index:100;"></div>
+
+</body>
+</html>
